@@ -5,7 +5,6 @@ using UnityEngine;
 public class Calculate
 {
     Degree degree;
-
     public void position(float radius)
     {
         GameObject enemy = GameObject.Find("enemy");
@@ -27,6 +26,6 @@ public class Calculate
         pos.y = y;
         pos.z = z;
 
-        myTranform.position = pos;
+        myTranform.position = pos;//配列で返すプログラムに変更→Instantiate関数に代入
     }
 }

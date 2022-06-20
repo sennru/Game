@@ -6,7 +6,7 @@ public class timerUI : MonoBehaviour
 {
     TimeCalculator timeCalculator;
     public float gametime = 60.0f;
-    public float currentTime;
+    float currentTime;
     int display;
     public void Start()
     {

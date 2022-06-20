@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class UIManeger : MonoBehaviour
 {
     public GameObject get;
-    public GameObject timer;
     private int i = 0;
-    int time;
     bool OnResultScreen = false;
     [SerializeField] GameObject Startmenu;
     [SerializeField] GameObject Option;
@@ -17,11 +15,6 @@ public class UIManeger : MonoBehaviour
     [SerializeField] GameObject pause_select;
     [SerializeField] GameObject result;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -38,13 +31,6 @@ public class UIManeger : MonoBehaviour
         if (get == GameObject.Find("result"))
         {
             i = 2;
-        }
-
-        string remain = timer.GetComponent<Text>().text;
-        time = int.Parse(remain);
-        if (time == 0)
-        {
-            Toresult();
         }
     }
 
@@ -96,7 +82,6 @@ public class UIManeger : MonoBehaviour
         i = 1;
     }
 
-    // Update is called once per frame
     public void pause()
     {
         if(get == GameObject.Find("game"))

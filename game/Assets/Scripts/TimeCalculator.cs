@@ -16,11 +16,11 @@ public class TimeCalculator
     public float Timer(float currentTime)
     {
         currentTime -= Time.deltaTime;
-        if (currentTime <= 0.0f)
+        if (currentTime <= 0f)
         {
+            GetText(60);
             currentTime = 60.0f;
         }
-        Debug.Log(currentTime);
         return currentTime;
     }
 }

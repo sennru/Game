@@ -8,6 +8,10 @@ public class enemy_appear : MonoBehaviour
     public float r = 1000.0f;
     int i = 0;
 
+    void Start()
+    {
+
+    }
 
     void Update()
     {
@@ -15,7 +19,7 @@ public class enemy_appear : MonoBehaviour
         i += 1;
         if(i % 100 == 0)
         {
-            calculate.position(r);
+            calculate.position(r);//自身のポジションを設定する→ポジションを取得
         }
 
     }

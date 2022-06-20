@@ -5,13 +5,12 @@ using UnityEngine;
 public class hit : MonoBehaviour
 {
     int score = 0;
-    public GameObject collapse;
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "enemy")
+        if (collision.gameObject.tag == "enemy")
         {
-            Destroy(collapse);
-            Destroy(this.gameObject);
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
             score += 5;
             Debug.Log(score);
         }
@@ -33,7 +32,6 @@ public class hit : MonoBehaviour
             Destroy(this.gameObject);
             score -= 5;
             Debug.Log(score);
-            Debug.Log(r);
         }
     }
 
