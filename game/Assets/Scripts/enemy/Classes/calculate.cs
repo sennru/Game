@@ -5,8 +5,9 @@ using UnityEngine;
 public class Calculate
 {
     Degree degree;
-    public void position(float radius)
+    public float[] position(float radius)
     {
+        float[] pos = new float[3];
         GameObject enemy = GameObject.Find("enemy");
 
         degree = new Degree();
@@ -19,13 +20,9 @@ public class Calculate
         z = radius * Mathf.Sin(z_rot) * Mathf.Sin(y_rot);
         y = radius * Mathf.Cos(z_rot);
 
-        Transform myTranform = enemy.transform;
-        Vector3 pos = myTranform.position;
-
-        pos.x = x;
-        pos.y = y;
-        pos.z = z;
-
-        myTranform.position = pos;//配列で返すプログラムに変更→Instantiate関数に代入
+        pos[0] = x;
+        pos[1] = y;
+        pos[2] = z;
+        return pos;
     }
 }
