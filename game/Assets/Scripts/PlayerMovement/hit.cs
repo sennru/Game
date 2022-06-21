@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hit : MonoBehaviour
+public class Hit : MonoBehaviour
 {
-    int score = 0;
+    Scoremanager scoremanager;
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "enemy")
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
-            score += 5;
-            Debug.Log(score);
+            scoremanager.score += 5;
         }
     }
 
@@ -30,9 +29,13 @@ public class hit : MonoBehaviour
         if (r >= 60.0f)
         {
             Destroy(this.gameObject);
-            score -= 5;
-            Debug.Log(score);
+            scoremanager.score -= 5;
         }
+    }
+
+    void Start()
+    {
+        scoremanager = GameObject.Find("ScoreManeger").GetComponent<Scoremanager>();
     }
 
     void Update()
