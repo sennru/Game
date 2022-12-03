@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class timerUI : MonoBehaviour
+{
+    TimeCalculator timeCalculator;
+    public float gametime = 60.0f;
+    float currentTime;
+    int display;
+    public void Start()
+    {
+        gametime = 60.0f;
+        currentTime = gametime;
+    }
+
+    public void Update()
+    {
+        TimeDisplay();
+    }
+
+    void TimeDisplay()
+    {
+        timeCalculator = new TimeCalculator();
+        currentTime = timeCalculator.Timer(currentTime);
+        display = Mathf.FloorToInt(currentTime);
+        timeCalculator.GetText(display);
+    }
+}
