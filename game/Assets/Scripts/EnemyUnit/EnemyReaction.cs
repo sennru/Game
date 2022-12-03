@@ -11,14 +11,13 @@ public class EnemyReaction : MonoBehaviour
     DamageAndCostManager param;
     SwordSkillSystem2 swordSkillSystem2;
     SwordSkillSystem3 swordSkillSystem3;
+    ScoreManager ScoreUI;
     public GameObject SecondKatana;
     public GameObject thirdKatana;
     float Hp;
     float MaxHp;
     public int score;
     public Slider slider;
-    Text ScoreUI;
-    private GameObject ScoreObject;
     public GameObject HpGage;
     AudioSource HitSound;
     public GameObject[] Exitems;
@@ -53,8 +52,7 @@ public class EnemyReaction : MonoBehaviour
         MaxHp = Hp;
         swordSkill = GameObject.Find("SwordSkillManager").GetComponent<SwordSkill>();
         slider.value = 1f;
-        ScoreObject = GameObject.Find("ScoreManager");
-        ScoreUI = ScoreObject.GetComponent<Text>();
+        ScoreUI = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         HitSound = GameObject.Find("Animation").GetComponent<AudioSource>();
         param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
     }
@@ -68,8 +66,7 @@ public class EnemyReaction : MonoBehaviour
             //Instantiate(gachaSystem.ItemGacha(ItemGachaList).ItemObject, gameObject.transform.position, Quaternion.identity);
             Instantiate(Exitems[4], gameObject.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
-            score = int.Parse(ScoreUI.text) + UnitStatus(Enemyname).getScore;
-            ScoreUI.text = "Score : " + score.ToString();
+            ScoreUI.Score += UnitStatus(Enemyname).getScore;
         }
     }
     Enemyinfo UnitStatus(string EnemyName)

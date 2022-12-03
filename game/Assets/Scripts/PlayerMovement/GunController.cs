@@ -9,7 +9,7 @@ public class GunController : MonoBehaviour
     public GameObject bulletPrefab;
     AudioSource GunSound;
     public float shotSpeed;
-    int bullets, MaxBullets;
+    public int bullets, MaxBullets;
     float ShotInterval;
     bool delay = false;
     Text BulletsAmount;

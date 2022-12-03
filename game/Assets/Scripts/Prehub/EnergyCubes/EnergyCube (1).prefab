@@ -4963,7 +4963,7 @@ GameObject:
   - component: {fileID: 5395957942896480393}
   m_Layer: 0
   m_Name: EnergyCube (1)
-  m_TagString: Untagged
+  m_TagString: EnergyCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

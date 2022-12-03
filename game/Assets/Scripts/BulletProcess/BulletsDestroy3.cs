@@ -8,9 +8,18 @@ public class BulletsDestroy3 : MonoBehaviour
     Vector3 Here;
     // Update is called once per frame
 
+    void Start()
+    {
+        StartCoroutine(AutoDestroy());
+    }
+    IEnumerator AutoDestroy()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(gameObject);
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name != "Player")
+        if(other.gameObject.tag == "Enemy")
         {
             Here = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
             Instantiate(Explosion, Here, Quaternion.Euler(0, 0, 0));

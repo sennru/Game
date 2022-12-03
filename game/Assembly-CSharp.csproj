@@ -61,6 +61,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\EnemyUnit\CloneEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Scripts\WorldTime.cs" />
     <Compile Include="Assets\Scripts\BulletProcess\BulletDestroy2.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement\SwordSkillSystem1.cs" />
     <Compile Include="Assets\Scripts\DebugOnly.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\PlayerMovement\GunController.cs" />
     <Compile Include="Assets\UnityExtension.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\Scripts\Field\wall.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\EnemyUnit\follow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
@@ -93,7 +95,9 @@
     <Compile Include="Assets\Scripts\PlayerMovement\ExItem\ExItem5.cs" />
     <Compile Include="Assets\Scripts\GachaSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\UI\ButtonDIY.cs" />
     <Compile Include="Assets\UnityExtension2.cs" />
+    <Compile Include="Assets\Scripts\UI\UIChanger.cs" />
     <Compile Include="Assets\Scripts\EnemyUnit\EnemyInfo.cs" />
     <Compile Include="Assets\Scripts\EnemyUnit\EnemyReaction.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -129,8 +133,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement\EnergyManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\WorldTime.cs" />
-    <Compile Include="Assets\Scripts\Field\wall.cs" />
+    <Compile Include="Assets\quit.cs" />
+    <Compile Include="Assets\Scripts\UI\ResetParametor.cs" />
+    <Compile Include="Assets\Scripts\UI\ScoreManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

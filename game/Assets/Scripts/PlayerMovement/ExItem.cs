@@ -20,7 +20,7 @@ public class ExItem : MonoBehaviour
     public void EnergyCount(Enemyinfo Unit)
     {
         energyManager.Energy += Unit.getScore;
-        Destroy(this.gameObject);
+        Destroy(this.transform.parent.gameObject);
     }
 
 }

@@ -5,13 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    //ŽÀŽ¿‚Ì‘¬“x
-    Rigidbody rb;
-    Vector3 MoveHorizontal;
-    Vector3 MoveVertical;
-    float distance;
-    float limitDistance;
-    float seconds = 0f;
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
@@ -28,9 +21,6 @@ public class PlayerMove : MonoBehaviour
     {
         costs = true;
         minutes = 0;
-        rb = GetComponent<Rigidbody>();
-        distance = 1.05f;
-        limitDistance = 30f;
         controller = GetComponent<CharacterController>();
 
         energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();

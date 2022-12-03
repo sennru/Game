@@ -12,6 +12,7 @@ TagManager:
   - Field
   - JumpPad
   - SuperJumpPad
+  - EnergyCube
   layers:
   - Default
   - TransparentFX

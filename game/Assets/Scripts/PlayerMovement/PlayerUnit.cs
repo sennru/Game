@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUnit : MonoBehaviour
 {
-    [SerializeField]
-    private float Hp = 12f;
+    public float Hp = 12f;
     string mode = "Gun";
     bool swing = true;
     public Animator anim;
@@ -27,13 +26,6 @@ public class PlayerUnit : MonoBehaviour
     bool InvincibleTime = true;
     public float GunDamage = 20f;
     public float SwordDamage = 100f;
-
-    void ResetStatus()
-    {
-        Hp = 12f;
-        Debug.Log("test");
-
-    }
 
     private void Start()
     {
@@ -152,7 +144,7 @@ public class PlayerUnit : MonoBehaviour
     }
     void LevelSystem()
     {
-        Exp = int.Parse(ScoreToExp.text);
+        
         if (Exp >= 500)
         {
             Lv = 3;
