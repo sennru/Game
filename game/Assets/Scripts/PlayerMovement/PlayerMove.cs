@@ -5,24 +5,28 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
+    //実質の速度
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
+    public float Sensitivity = 1f;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
     bool costs;
-    int minutes;
-    Text Timer;
+    public bool[] ItemUsed = new bool[3];
+    int[] ItemCount = new int[3];
     public GameObject[] walls;
     EnergyManager energyManager;
     ItemChange itemChange;
+    DamageAndCostManager DamageManager;
+
 
     private void Start()
     {
         costs = true;
-        minutes = 0;
         controller = GetComponent<CharacterController>();
 
+        DamageManager = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
         energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
         itemChange = GameObject.Find("ItemChangeManager").GetComponent<ItemChange>();
     }
@@ -32,6 +36,18 @@ public class PlayerMove : MonoBehaviour
         {
             RotY();
 
+        }
+        if (itemChange.ItemOn[2] && Input.GetMouseButtonDown(1) && ItemUsed[0] == false && ItemCount[0] > 0)
+        {
+            StartCoroutine(Heist());
+        }
+        if (itemChange.ItemOn[3] && Input.GetMouseButtonDown(1) && ItemUsed[1] == false && ItemCount[1] > 0)
+        {
+            StartCoroutine(Strength());
+        }
+        if (itemChange.ItemOn[4] && Input.GetMouseButtonDown(1) && ItemUsed[2] == false && ItemCount[2] > 0)
+        {
+            StartCoroutine(Slow());
         }
         /*Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.0f, 0.0f);
         Ray ray = new Ray(rayPosition, Vector3.down);
@@ -67,7 +83,6 @@ public class PlayerMove : MonoBehaviour
             {
                 StartCoroutine(JetPack());
             }
-
         }
         controller.Move(moveDirection * Time.deltaTime);
     }
@@ -75,7 +90,7 @@ public class PlayerMove : MonoBehaviour
     //左右の振り向き
     void RotY()
     {
-        float YMove = Input.GetAxis("Mouse X");
+        float YMove = Input.GetAxis("Mouse X") * 2 * Sensitivity;
         Vector3 YRot = transform.localEulerAngles;
         YRot.y += YMove;
         transform.localEulerAngles = YRot;
@@ -102,6 +117,22 @@ public class PlayerMove : MonoBehaviour
                 gravity /= 3;
             }
         }
+
+        if(collision.gameObject.tag == "Item")
+        {
+            if(collision.gameObject.name == "")
+            {
+                ItemCount[0] += 1;
+            }
+            if (collision.gameObject.name == "")
+            {
+                ItemCount[1] += 1;
+            }
+            if (collision.gameObject.name == "")
+            {
+                ItemCount[2] += 1;
+            }
+        }
     }
 
     IEnumerator JetPack()
@@ -110,5 +141,199 @@ public class PlayerMove : MonoBehaviour
         energyManager.Energy -= 50;
         yield return new WaitForSeconds(0.25f);
         costs = !costs;
+    }
+
+    IEnumerator Heist()
+    {
+        ItemUsed[0] = !ItemUsed[0];
+        speed *= 2.0f;
+        ItemCount[0] -= 1;
+        Debug.Log("Use Heist");
+        yield return new WaitForSeconds(30);
+        speed *= 1f;
+        ItemUsed[0] = !ItemUsed[0];
+    }
+
+    IEnumerator Strength()
+    {
+        ItemUsed[1] = !ItemUsed[1];
+        DamageManager.DamageBuff(2f);
+        Debug.Log("Use Strength");
+        ItemCount[1] -= 1;
+        yield return new WaitForSeconds(30);
+        DamageManager.DamageBuff(1 / 2f);
+        ItemUsed[1] = !ItemUsed[1];
+    }
+
+    IEnumerator Slow()
+    {
+        Debug.Log("Use Slow");
+        ItemUsed[2] = !ItemUsed[2];
+        ItemCount[2] -= 1;
+        yield return new WaitForSeconds(30);
+        ItemUsed[2] = !ItemUsed[2];
+    }
+}
+
+public class PlayerUnit : MonoBehaviour
+{
+    public float Hp = 12f;
+    string mode = "Gun";
+    bool swing = true;
+    public Animator anim;
+    public Animator damageReactionUI;
+    AudioSource DamageSound;
+    public AudioSource SwingSound;
+    public GameObject[] HpImages;
+    public GameObject HpUI;
+    public GameObject DamageCollider;
+    public GameObject DamageColliderPosition;
+    public GameObject Sword;
+    public GameObject Gun;
+    public GameObject IsOnKatana;
+    enemyUnit enemy = new enemyUnit();
+    [System.NonSerialized]
+    public int Lv, Exp;
+
+    bool InvincibleTime = true;
+    public float GunDamage = 20f;
+    public float SwordDamage = 100f;
+
+    private void Start()
+    {
+        Lv = 1;
+        DamageSound = this.GetComponent<AudioSource>();
+        HpUI = GameObject.Find("HpUI");
+        for(int i = 0; i < HpImages.Length; i++)
+        {
+            HpImages[i] = HpUI.transform.GetChild(i).gameObject;
+        }
+    }
+
+    private void Update()
+    {
+        LevelSystem();
+        playerMode(mode);
+        for (int i = 0; i < 12; i++)
+        {
+            if (i < Hp)
+            {
+                HpImages[i].SetActive(true);
+            }
+            else if (i >= Hp)
+            {
+                HpImages[i].SetActive(false);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (InvincibleTime == true)
+        {
+            StartCoroutine(Invincible(other));
+        }
+    }
+
+    //eを押すとモードをかえる
+    void playerMode(string modeString)
+    {
+        if (modeString == "Gun")
+        {
+            if (Input.GetKeyDown("e"))
+            {
+                mode = "Sword";
+                Sword.SetActive(true);
+                Gun.SetActive(false);
+                anim.Play("Gun", 0, 0.0f);
+            }
+        }
+        if (modeString == "Sword")
+        {
+            if (Input.GetKeyDown("e"))
+            {
+                mode = "Gun";
+                Sword.SetActive(false);
+                Gun.SetActive(true);
+                anim.Play("Gun", 0, 0.0f);
+            }
+            if (Input.GetMouseButtonDown(0) && IsOnKatana.activeSelf == true)
+            {
+                if (swing == true)
+                {
+                    StartCoroutine(SwordMotion());
+                }
+            }
+        }
+    }
+    IEnumerator SwordMotion()
+    {
+        bool mode = anim.GetBool("Mode");
+
+        swing = false;
+        mode = true;
+        anim.SetBool("Mode", mode);
+        SwingSound.Play();
+        Instantiate(DamageCollider, DamageColliderPosition.transform.position, DamageColliderPosition.transform.rotation);
+        yield return new WaitForSeconds(0.5f);
+
+        mode = false;
+        anim.SetBool("Mode", mode);
+        swing = true;
+    }
+
+    IEnumerator IAIMotion()
+    {
+
+        yield return 0;
+    }
+
+    IEnumerator Invincible(Collider enemyObject)
+    {
+        if (enemyObject.tag == "Enemy")
+        {
+            InvincibleTime = !InvincibleTime;
+            if (enemyObject.name == "Enemy1(Clone)")
+            {
+                Hp -= enemy.firstEnemy.Damage;
+            }
+            if (enemyObject.name == "Enemy2(Clone)")
+            {
+                Hp -= enemy.secondEnemy.Damage;
+            }
+            if (enemyObject.name == "Enemy3(Clone)")
+            {
+                Hp -= enemy.thirdEnemy.Damage;
+            }
+            if (enemyObject.name == "Enemy4(Clone)")
+            {
+                Hp -= enemy.lastEnemy.Damage;
+            }
+            if (enemyObject.name == "Boss(Clone)")
+            {
+                Hp -= enemy.boss.Damage;
+            }
+            damageReactionUI.Play("DamageShake", 0, 0.0f);
+            DamageSound.Play();
+
+            yield return new WaitForSeconds(2);
+            InvincibleTime = !InvincibleTime;
+        }
+    }
+    void LevelSystem()
+    {
+
+        if (Exp >= 500)
+        {
+            Lv = 3;
+        }
+        else if (Exp >= 200)
+        {
+            Lv = 2;
+        }
+        else
+        {
+            Lv = 1;
+        }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnergyManager : MonoBehaviour
 {
     public Text EnergyText;
+    [System.NonSerialized]
     public int Energy = 50;
 
 

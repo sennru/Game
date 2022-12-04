@@ -84,6 +84,7 @@
     <Compile Include="Assets\UnityExtension3.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement\GunController.cs" />
     <Compile Include="Assets\UnityExtension.cs" />
+    <Compile Include="Assets\quit.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Field\wall.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -98,9 +99,9 @@
     <Compile Include="Assets\Scripts\UI\ButtonDIY.cs" />
     <Compile Include="Assets\UnityExtension2.cs" />
     <Compile Include="Assets\Scripts\UI\UIChanger.cs" />
-    <Compile Include="Assets\Scripts\EnemyUnit\EnemyInfo.cs" />
     <Compile Include="Assets\Scripts\EnemyUnit\EnemyReaction.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\UI\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement\Jet.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement\XCameraAngle.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\UI\ResetParametor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\BulletProcess\bulletDestroy.cs" />
     <Compile Include="Assets\Scripts\BulletProcess\ExplosionDestroy.cs" />
@@ -133,9 +135,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement\EnergyManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\quit.cs" />
-    <Compile Include="Assets\Scripts\UI\ResetParametor.cs" />
-    <Compile Include="Assets\Scripts\UI\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\UI\CameraSense.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

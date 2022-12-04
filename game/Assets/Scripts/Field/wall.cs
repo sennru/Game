@@ -46,6 +46,7 @@ public class wall : MonoBehaviour
 
         for (int i = 0; i < pos.Length; i++)
         {
+            pos[i].y = 150f;
             Walls[i].transform.position = pos[i];
         }
     }

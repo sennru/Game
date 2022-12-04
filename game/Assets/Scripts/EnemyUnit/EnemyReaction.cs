@@ -16,6 +16,7 @@ public class EnemyReaction : MonoBehaviour
     public GameObject thirdKatana;
     float Hp;
     float MaxHp;
+    float DownSpeed;
     public int score;
     public Slider slider;
     public GameObject HpGage;
@@ -29,6 +30,7 @@ public class EnemyReaction : MonoBehaviour
     public List<Gacha> ItemGachaLists;
     GachaSystem gachaSystem = new GachaSystem();
     bool ZoneInterval = true;
+    PlayerMove PlayerSlow;
 
     [SerializeField]
     private string Enemyname;
@@ -55,11 +57,12 @@ public class EnemyReaction : MonoBehaviour
         ScoreUI = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         HitSound = GameObject.Find("Animation").GetComponent<AudioSource>();
         param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
+        PlayerSlow = GameObject.Find("Player").GetComponent<PlayerMove>();
     }
 
     void Update()
     {
-        Enemyfollow.enemyMovement(UnitStatus(Enemyname).speed, this.gameObject);//ココを共通
+        Enemyfollow.enemyMovement(UnitStatus(Enemyname).speed * DownSpeed, this.gameObject);//ココを共通
         slider.value = Hp / MaxHp;
         if (Hp <= 0)
         {
@@ -67,6 +70,14 @@ public class EnemyReaction : MonoBehaviour
             Instantiate(Exitems[4], gameObject.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
             ScoreUI.Score += UnitStatus(Enemyname).getScore;
+        }
+        if(PlayerSlow.ItemUsed[2] == true)
+        {
+            DownSpeed = 0.7f;
+        }
+        else
+        {
+            DownSpeed = 1.0f;
         }
     }
     Enemyinfo UnitStatus(string EnemyName)

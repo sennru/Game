@@ -22,6 +22,7 @@ public class DamageAndCostManager : MonoBehaviour
     public int CostGun1;
     public int CostGun2;
     public int CostGun3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,8 +42,14 @@ public class DamageAndCostManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void DamageBuff(float Buff)
     {
-
+        SwordDamage1 = 50f * Buff;
+        SwordDamage2 = 200f * Buff;
+        SwordDamage3 = 120f * Buff;
+        SwordDamage4 = 120f * Buff;
+        GunDamage1 = 10f * Buff;
+        GunDamage2 = 100f * Buff;
+        GunDamage3 = 800f * Buff;
     }
 }

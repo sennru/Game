@@ -6,7 +6,6 @@ using CaluculateExtention;
 public class CloneEnemy : MonoBehaviour
 {
     public GameObject[] Enemy;
-    follow Enemyfollow = new follow();
     public GameObject WorldTimer;
     float seconds;
     float[] sec = new float[5];

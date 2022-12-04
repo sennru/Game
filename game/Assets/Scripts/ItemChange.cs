@@ -53,7 +53,18 @@ public class ItemChange : MonoBehaviour
                 case 1:
                     SelectNow.text = "JetPack";
                     break;
-                    
+                case 2:
+                    SelectNow.text = "heist";
+                    break;
+                case 3:
+                    SelectNow.text = "Strength";
+                    break;
+                case 4:
+                    SelectNow.text = "Slow";
+                    break;
+                case 5:
+                    SelectNow.text = "Glider";
+                    break;
             }
         }
         if (Input.GetKeyUp("f"))

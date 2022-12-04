@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class XCameraAngle : MonoBehaviour
 {
-
+    public float Sensitivity = 1f;
     void Update()
     {
         if (!Input.GetMouseButton(2))
@@ -15,7 +15,7 @@ public class XCameraAngle : MonoBehaviour
 
     void Xrot()
     {
-        float Xmove = Input.GetAxis("Mouse Y");
+        float Xmove = Input.GetAxis("Mouse Y") * 2 * Sensitivity;
         Vector3 XRot = transform.localEulerAngles;
         XRot.x -= Xmove;
         transform.localEulerAngles = XRot;

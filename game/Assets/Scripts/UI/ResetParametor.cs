@@ -11,8 +11,10 @@ public class ResetParametor : MonoBehaviour
     EnergyManager ResetEnergy;
     GunController Bullets;
     GameObject[] Enemies, EnergyCubes;
+    GameObject Player;
     public void Start()
     {
+        Player = GameObject.Find("Player");
         PlayerObject = GameObject.Find("Player").GetComponent<PlayerUnit>();
         Timer = GameObject.Find("WorldTimer").GetComponent<WorldTime>();
         ScoreUI = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
@@ -21,10 +23,13 @@ public class ResetParametor : MonoBehaviour
     }
     public void ResetParam()
     {
+        Player.GetComponent<CharacterController>().enabled = false;
+        Player.transform.position = new Vector3(0f, 1.41f, 0f);
+        Player.GetComponent<CharacterController>().enabled = true;
         PlayerObject.Hp = 12;
         Timer.WorldTimeSeconds = 0f;
         ScoreUI.Score = 0;
-        ResetEnergy.Energy = 0;
+        ResetEnergy.Energy = 50;
         Bullets.bullets = 24;
         Enemies = GameObject.FindGameObjectsWithTag("Enemy");
         EnergyCubes = GameObject.FindGameObjectsWithTag("EnergyCube");
@@ -36,5 +41,6 @@ public class ResetParametor : MonoBehaviour
         {
             Destroy(Cubes);
         }
+        Time.timeScale = 1.0f;
     }
 }

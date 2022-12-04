@@ -24,12 +24,10 @@ public class UIChanger : MonoBehaviour
         if (i == 4 && Input.GetKeyDown(KeyCode.Escape))
         {
             i = 6;
-            Time.timeScale = 0f;
         }
         else if (i == 6 && Input.GetKeyDown(KeyCode.Escape))
         {
             i = 4;
-            Time.timeScale = 1.0f;
         }
 
         for (int j = 0; j < 4; j++)
@@ -43,7 +41,10 @@ public class UIChanger : MonoBehaviour
                 Panels[j].SetActive(false);
             }
         }
-        
+        if(i != 4)
+        {
+            Time.timeScale = 0f;
+        }
         if(PlayerHP.Hp <= 0 && i == 4 && DebugOnly == false)
         {
             i = 8;

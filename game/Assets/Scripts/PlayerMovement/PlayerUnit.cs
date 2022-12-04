@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUnit : MonoBehaviour
+public class PlayerUit : MonoBehaviour
 {
     public float Hp = 12f;
     string mode = "Gun";
@@ -158,14 +158,7 @@ public class PlayerUnit : MonoBehaviour
             Lv = 1;
         }
     }
-    void GameOver()
-    {
-        if (Hp <= 0)
-        {
 
-            //ゲームオーバーのUIを出す
-        }
-    }
 }
 
     // Update is called once per frame
