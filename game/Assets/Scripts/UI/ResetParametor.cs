@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ResetParametor : MonoBehaviour
 {
     PlayerUnit PlayerObject;
+    PlayerMove Playermove;
     WorldTime Timer;
     ScoreManager ScoreUI;
     EnergyManager ResetEnergy;
@@ -16,6 +17,7 @@ public class ResetParametor : MonoBehaviour
     {
         Player = GameObject.Find("Player");
         PlayerObject = GameObject.Find("Player").GetComponent<PlayerUnit>();
+        Playermove = GameObject.Find("Player").GetComponent<PlayerMove>();
         Timer = GameObject.Find("WorldTimer").GetComponent<WorldTime>();
         ScoreUI = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         ResetEnergy = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
@@ -23,6 +25,10 @@ public class ResetParametor : MonoBehaviour
     }
     public void ResetParam()
     {
+        for(int i = 0; i < Playermove.ItemCount.Length; i++)
+        {
+            Playermove.ItemCount[i] = 0;
+        }
         Player.GetComponent<CharacterController>().enabled = false;
         Player.transform.position = new Vector3(0f, 1.41f, 0f);
         Player.GetComponent<CharacterController>().enabled = true;

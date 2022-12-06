@@ -107,11 +107,6 @@ public class EnemyReaction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
-        {
-            Destroy(this.gameObject);
-        }
-
         if (other.gameObject.tag == "BulletAttack")
         {
             if(other.gameObject.name == "bullet(Clone)")

@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     private CharacterController controller;
     bool costs;
     public bool[] ItemUsed = new bool[3];
-    int[] ItemCount = new int[3];
+    public int[] ItemCount = new int[3];
     public GameObject[] walls;
     EnergyManager energyManager;
     ItemChange itemChange;
@@ -35,7 +35,6 @@ public class PlayerMove : MonoBehaviour
         if (!Input.GetMouseButton(2))
         {
             RotY();
-
         }
         if (itemChange.ItemOn[2] && Input.GetMouseButtonDown(1) && ItemUsed[0] == false && ItemCount[0] > 0)
         {
@@ -49,6 +48,7 @@ public class PlayerMove : MonoBehaviour
         {
             StartCoroutine(Slow());
         }
+        Debug.Log(ItemCount[0]);
         /*Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.0f, 0.0f);
         Ray ray = new Ray(rayPosition, Vector3.down);
         bool isGround = Physics.Raycast(ray, distance);
@@ -120,18 +120,20 @@ public class PlayerMove : MonoBehaviour
 
         if(collision.gameObject.tag == "Item")
         {
-            if(collision.gameObject.name == "")
+            if(collision.gameObject.name == "Heist(Clone)")
             {
                 ItemCount[0] += 1;
             }
-            if (collision.gameObject.name == "")
+            if (collision.gameObject.name == "Strength(Clone)")
             {
                 ItemCount[1] += 1;
             }
-            if (collision.gameObject.name == "")
+            if (collision.gameObject.name == "Slow(Clone)")
             {
                 ItemCount[2] += 1;
             }
+            Destroy(collision.gameObject);
+            
         }
     }
 
@@ -146,11 +148,11 @@ public class PlayerMove : MonoBehaviour
     IEnumerator Heist()
     {
         ItemUsed[0] = !ItemUsed[0];
-        speed *= 2.0f;
+        speed *= 20.0f;
         ItemCount[0] -= 1;
         Debug.Log("Use Heist");
         yield return new WaitForSeconds(30);
-        speed *= 1f;
+        speed /= 20f;
         ItemUsed[0] = !ItemUsed[0];
     }
 

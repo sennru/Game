@@ -13,6 +13,7 @@ TagManager:
   - JumpPad
   - SuperJumpPad
   - EnergyCube
+  - Item
   layers:
   - Default
   - TransparentFX

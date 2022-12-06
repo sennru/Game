@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4565316759143619955}
   - component: {fileID: 4565316759143619954}
   - component: {fileID: 4565316759143619965}
-  - component: {fileID: 4565316759143619964}
+  - component: {fileID: 4046285623969658620}
   m_Layer: 0
   m_Name: ExCube5
   m_TagString: Untagged
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4565316759143619964
+--- !u!114 &4046285623969658620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4565316759143619966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee08fb85d57d90458de4e5164be96fc, type: 3}
+  m_Script: {fileID: 11500000, guid: c53ef57758f762f4e86de5d42ebda96f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4565316759815885387
