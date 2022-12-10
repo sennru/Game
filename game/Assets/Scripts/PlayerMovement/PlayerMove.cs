@@ -12,9 +12,9 @@ public class PlayerMove : MonoBehaviour
     public float Sensitivity = 1f;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
-    bool costs;
-    public bool[] ItemUsed = new bool[3];
-    public int[] ItemCount = new int[3];
+    bool costs, UseJetPack;
+    public bool[] ItemUsed = new bool[4];
+    public int[] ItemCount = new int[4];
     public GameObject[] walls;
     EnergyManager energyManager;
     ItemChange itemChange;
@@ -36,17 +36,25 @@ public class PlayerMove : MonoBehaviour
         {
             RotY();
         }
-        if (itemChange.ItemOn[2] && Input.GetMouseButtonDown(1) && ItemUsed[0] == false && ItemCount[0] > 0)
+        if (itemChange.ItemOn[1] && Input.GetMouseButtonDown(1) && ItemUsed[0] == false && ItemCount[0] > 0)
         {
             StartCoroutine(Heist());
         }
-        if (itemChange.ItemOn[3] && Input.GetMouseButtonDown(1) && ItemUsed[1] == false && ItemCount[1] > 0)
+        if (itemChange.ItemOn[2] && Input.GetMouseButtonDown(1) && ItemUsed[1] == false && ItemCount[1] > 0)
         {
             StartCoroutine(Strength());
         }
-        if (itemChange.ItemOn[4] && Input.GetMouseButtonDown(1) && ItemUsed[2] == false && ItemCount[2] > 0)
+        if (itemChange.ItemOn[3] && Input.GetMouseButtonDown(1) && ItemUsed[2] == false && ItemCount[2] > 0)
         {
             StartCoroutine(Slow());
+        }
+        if (itemChange.ItemOn[4] && Input.GetMouseButtonDown(1) && ItemUsed[3] == false && ItemCount[3] > 0)
+        {
+            UseJetPack = true;
+        }
+        else
+        {
+            UseJetPack = false;
         }
         Debug.Log(ItemCount[0]);
         /*Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.0f, 0.0f);
@@ -105,17 +113,23 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.tag == "MoveFloor")
+        {
+            transform.SetParent(collision.transform);
+        }
+
         if(collision.gameObject.tag == "JumpPad")
         {
             moveDirection.y = jumpSpeed * 2;
         }
         if (collision.gameObject.tag == "SuperJumpPad")
         {
-            moveDirection.y = jumpSpeed * 4;
-            if (!controller.isGrounded)
-            {
-                gravity /= 3;
-            }
+            moveDirection.y = jumpSpeed * 6.5f;
+        }
+
+        if(collision.gameObject.tag == "BoundGimmick")
+        {
+            moveDirection.x = 30f;
         }
 
         if(collision.gameObject.tag == "Item")
@@ -132,8 +146,20 @@ public class PlayerMove : MonoBehaviour
             {
                 ItemCount[2] += 1;
             }
+            if(collision.gameObject.name == "JetPack(Clone)")
+            {
+                ItemCount[3] += 1;
+            }
             Destroy(collision.gameObject);
             
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "MoveFloor")
+        {
+            transform.SetParent(null);
         }
     }
 

@@ -14,6 +14,8 @@ TagManager:
   - SuperJumpPad
   - EnergyCube
   - Item
+  - MoveFloor
+  - BoundGimmick
   layers:
   - Default
   - TransparentFX

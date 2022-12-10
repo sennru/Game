@@ -40,6 +40,12 @@ namespace CaluculateExtention
 
             return pos;
         }
+
+        public static float PositionToRadius(Vector3 pos)
+        {
+            var radius = Mathf.Sqrt(Mathf.Pow(pos.x, 2) + Mathf.Pow(pos.y, 2) + Mathf.Pow(pos.z, 2));
+            return radius;
+        }
     }
 }
 
