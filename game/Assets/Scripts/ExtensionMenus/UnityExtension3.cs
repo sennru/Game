@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class UnityExtension3 : EditorWindow
 {
-    [MenuItem("Window/MakeBox")]
+    [MenuItem("StageMaker/MakeBox")]
     static void Open()
     {
         EditorWindow.GetWindow<UnityExtension3>("MakeBox");

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class follow : MonoBehaviour
 {
-    GameObject enemy;
     Vector3 myTransform;
     Vector3 playerTransform;
     Vector3 velocityVector;

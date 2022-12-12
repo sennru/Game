@@ -15,7 +15,7 @@ TagManager:
   - EnergyCube
   - Item
   - MoveFloor
-  - BoundGimmick
+  - DamageBound
   layers:
   - Default
   - TransparentFX

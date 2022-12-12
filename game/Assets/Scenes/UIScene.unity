@@ -822,7 +822,7 @@ MonoBehaviour:
   - {fileID: 309632566}
   - {fileID: 1345622901}
   i: 1
-  DebugOnly: 1
+  DebugOnly: 0
 --- !u!1 &578749892
 GameObject:
   m_ObjectHideFlags: 0
