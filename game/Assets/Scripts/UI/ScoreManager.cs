@@ -6,16 +6,13 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     public int Score;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Text GameScore;
+    public Text ResultScore;
 
-    // Update is called once per frame
     void Update()
     {
-        GameObject.Find("ScoreManager").GetComponent<Text>().text = "Score : " + Score.ToString();
+        GameScore = GameObject.Find("ScoreManager").GetComponent<Text>();
+        ResultScore.text = "Score : " + Score.ToString();
+        GameScore.text = "Score : " + Score.ToString();
     }
 }

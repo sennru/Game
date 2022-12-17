@@ -57,12 +57,12 @@ public class SwordSkillSystem3 : MonoBehaviour
                 {
                     //ç≈ëÂíºåaÉ”15, ç≈è¨íºåaÉ”10
                     var x = Mathf.Abs(0.5f - Value);
-                    var ZoneScale = LinearFunctionValue.GetValue(0.15f, 0.5f, 15f, 10f, x);
-                    DamageControl = LinearFunctionValue.GetValue(0.15f, 0.5f, 100f, 80f, x);
+                    var ZoneScale = LinearFunctionValue.GetValue(0f, 0.5f, 15f, 10f, x);
+                    //ç≈ëÂ-ç≈è¨É_ÉÅÅ[ÉW = 70
+                    DamageControl = LinearFunctionValue.GetValue(0f, 0.5f, param.SwordDamage4, param.SwordDamage4 - 70, x);
                     IsSuccess = false;
                     Zone.transform.localScale = new Vector3(ZoneScale, ZoneScale, ZoneScale);
                     StartCoroutine(ZoneAttack());
-                    Debug.Log(ZoneScale);
                 }
             }
         }

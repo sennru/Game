@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUit : MonoBehaviour
+public class PlayerUnit : MonoBehaviour
 {
     public float Hp = 12f;
     string mode = "Gun";
@@ -12,16 +12,17 @@ public class PlayerUit : MonoBehaviour
     public Animator damageReactionUI;
     AudioSource DamageSound;
     public AudioSource SwingSound;
-    public GameObject[] HpImages;
+    GameObject[] HpImages = new GameObject[12];
     public GameObject DamageCollider;
     public GameObject DamageColliderPosition;
     public GameObject Sword;
     public GameObject Gun;
     public GameObject IsOnKatana;
     enemyUnit enemy = new enemyUnit();
-    public Text ScoreToExp;
+    ScoreManager Score;
     [System.NonSerialized]
     public int Lv, Exp;
+    public Text LvUI;
 
     bool InvincibleTime = true;
     public float GunDamage = 20f;
@@ -29,12 +30,18 @@ public class PlayerUit : MonoBehaviour
 
     private void Start()
     {
+        for(int i = 0; i < HpImages.Length; i++)
+        {
+            HpImages[i] = GameObject.Find("HpUI").transform.GetChild(i).gameObject;
+        }
+        Score = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         Lv = 1;
         DamageSound = this.GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        Exp = Score.Score;
         LevelSystem();
         playerMode(mode);
         for (int i = 0; i < 12; i++)
@@ -54,6 +61,27 @@ public class PlayerUit : MonoBehaviour
     {
         if(InvincibleTime == true){
             StartCoroutine(Invincible(other));
+        }
+        if(other.gameObject.name == "Cure")
+        {
+            if(Hp + 3 >= 12)
+            {
+                Hp = 12;
+            }
+            else
+            {
+                Hp += 3;
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "DamageBound")
+        {
+            Hp -= 1;
+            damageReactionUI.Play("DamageShake", 0, 0.0f);
+            DamageSound.Play();
         }
     }
 
@@ -141,10 +169,11 @@ public class PlayerUit : MonoBehaviour
             yield return new WaitForSeconds(2);
             InvincibleTime = !InvincibleTime;
         }
+
     }
     void LevelSystem()
     {
-        
+        LvUI.text = "Lv." + Lv.ToString();
         if (Exp >= 500)
         {
             Lv = 3;
@@ -160,5 +189,3 @@ public class PlayerUit : MonoBehaviour
     }
 
 }
-
-    // Update is called once per frame

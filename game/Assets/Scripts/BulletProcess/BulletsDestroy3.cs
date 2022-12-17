@@ -6,17 +6,12 @@ public class BulletsDestroy3 : MonoBehaviour
 {
     public GameObject Explosion;
     Vector3 Here;
-    // Update is called once per frame
 
     void Start()
     {
-        StartCoroutine(AutoDestroy());
+        Destroy(gameObject, 10f);
     }
-    IEnumerator AutoDestroy()
-    {
-        yield return new WaitForSeconds(10f);
-        Destroy(gameObject);
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Enemy")

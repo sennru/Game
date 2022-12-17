@@ -19,6 +19,7 @@ public class StageMaker : EditorWindow
     string OriginalName;
     GameObject MirrorPlate;
     GameObject PackageObject;
+    GameObject[] PrehubObject;
     Vector3 DatamVector = Vector3.zero;
     Vector3 PatternVector;
     Vector3 PatternRotateVector = Vector3.zero;
@@ -27,10 +28,12 @@ public class StageMaker : EditorWindow
     static void Open()
     {
         EditorWindow.GetWindow<StageMaker>("StageMaker");
+        
     }
 
     void OnGUI()
     {
+        minSize = new Vector2(500, 600);
         EditorGUILayout.LabelField("座標移動");
         ControllPosition();
         Unit = EditorGUILayout.FloatField("大きさ", UnitControll[floatIndex]);
@@ -44,6 +47,9 @@ public class StageMaker : EditorWindow
         EditorGUILayout.LabelField("\n");
         EditorGUILayout.LabelField("複数のオブジェクトに名前をつける");
         Named();
+        EditorGUILayout.LabelField("\n");
+        EditorGUILayout.LabelField("入れ替え (個数を1:1に対応してください)");
+        ReplaceObject();
     }
 
     void ControllPosition()
@@ -307,6 +313,34 @@ public class StageMaker : EditorWindow
             {
                 index++;
                 n.name = OriginalName + "_" + index;
+            }
+        }
+    }
+
+    void ReplaceObject()
+    {
+        if (Selection.gameObjects != null && GUILayout.Button("PrehubSelect"))
+        {
+            PrehubObject = Selection.gameObjects;
+            EditorGUILayout.LabelField("入れ替え先を選んでください");
+        }
+
+        if (PrehubObject != null && Selection.gameObjects != null && GUILayout.Button("ReplaceStart"))
+        {
+            int index = 0;
+            Vector3 PrehubPos;
+            GameObject[] ReplacedObjects = Selection.gameObjects;
+            GameObject ReplacedEmptyObject = new GameObject();
+            ReplacedEmptyObject.name = "ReplacedObjects";
+            for (int i = 0; i < ReplacedObjects.Length; i++)
+            {
+                PrehubPos = PrehubObject[index].transform.position;
+                PrehubObject[index].transform.position = ReplacedObjects[index].transform.position;
+                ReplacedObjects[index].transform.position = PrehubPos;
+                PrehubObject[index].transform.parent = ReplacedObjects[index].transform.parent;
+                ReplacedObjects[index].transform.parent = ReplacedEmptyObject.transform;
+
+                index++;
             }
         }
     }

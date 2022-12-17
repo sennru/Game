@@ -16,7 +16,6 @@ public class SwordSkill : MonoBehaviour
     float Speed;
     public bool IsSuccess;
 
-    // Start is called before the first frame update
     public void Start()
     {
         SkillSlider = SwordSkillObject.GetComponent<Slider>();
@@ -24,7 +23,6 @@ public class SwordSkill : MonoBehaviour
         SwordSkillObject.SetActive(false);
     }
 
-    // Update is called once per frame
 
     private void Update()
     {
@@ -42,7 +40,7 @@ public class SwordSkill : MonoBehaviour
             }
             else if(katanaIsOn[3].activeSelf == true)
             {
-                Speed = 1.6f * (1f / 0.3f);
+                Speed = 1.6f * (1f / 0.3f); //éûä‘å∏ë¨ï™ÇÃèÊéZ
                 SliderMovement.SetFloat("Speed", Speed);
             }
         }

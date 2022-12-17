@@ -6,15 +6,14 @@ namespace CaluculateExtention
 {
     public class LinearFunctionValue : MonoBehaviour
     {
-        static public float GetValue(float x1, float x2, float n1, float n2, float x)
+        static public float GetValue(float x1, float x2, float y1, float y2, float x)
         {
-            var a = (1f / (x1 - x2)) * (n1 - n2);
-            var b = (1f / (x1 - x2)) * (x1 * n2 - x2 * n1);
-            var n = a * x + b;
-            return n;
+            var a = (y1 - y2) / (x1 - x2);
+            var b = y1 - a * x1;
+            var y = a * x + b;
+            return y;
         }
-
-        //x1:‘Î‰ãŒÀ—Ê x2:‘Î‰‰ºŒÀ—Ê, n1:ãŒÀ’l n2:‰ºŒÀ’l x:•Ï”‘ã“ü—Ê
+        //x1:x•Ï‰»‰ºŒÀ x2:x•Ï‰»ãŒÀ, n1:y•Ï‰»‰ºŒÀ n2:y•Ï‰»ãŒÀ x:•Ï”‘ã“ü—Ê
     }
 
     public class PositionCalculate : MonoBehaviour
@@ -45,6 +44,12 @@ namespace CaluculateExtention
         {
             var radius = Mathf.Sqrt(Mathf.Pow(pos.x, 2) + Mathf.Pow(pos.y, 2) + Mathf.Pow(pos.z, 2));
             return radius;
+        }
+
+        public static float Distance(Vector3 Start, Vector3 End)
+        {
+            var dis = Mathf.Sqrt(Mathf.Pow(Start.x - End.x, 2) + Mathf.Pow(Start.y - End.y, 2) + Mathf.Pow(Start.z - End.z, 2));
+            return dis;
         }
     }
 }

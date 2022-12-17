@@ -24,7 +24,6 @@ public class Lifter : MonoBehaviour
         MyPos = transform.localPosition;
         TurnPoints(TurnVec);
         transform.localPosition += pos * Time.deltaTime * LiftSpeed;
-        Debug.Log(pos * LiftSpeed);
     }
 
     void TurnPoints(Vector3[] TurnPos)

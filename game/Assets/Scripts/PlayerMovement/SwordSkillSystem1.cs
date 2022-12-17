@@ -14,7 +14,6 @@ public class SwordSkillSystem1 : MonoBehaviour
     public AudioSource Ready;
     public AudioClip[] IAISound;
     float Value;
-    // Start is called before the first frame update
     void Start()
     {
         param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
@@ -22,7 +21,6 @@ public class SwordSkillSystem1 : MonoBehaviour
         swordSkill = GameObject.Find("SwordSkillManager").GetComponent<SwordSkill>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (energyManager.Energy >= param.CostSword2)

@@ -132,11 +132,7 @@ MonoBehaviour:
   slider: {fileID: 3729403607338396091}
   HpGage: {fileID: 3729403607265331904}
   Exitems:
-  - {fileID: 8267982471338052230, guid: 8d4f2eb36338b234385a7116d2d5f9b3, type: 3}
-  - {fileID: 5295494647907169742, guid: 8b092c331c0ebb54890a7a8d440f2a58, type: 3}
-  - {fileID: 7476333417249476985, guid: 5723db35aeeb974488e4fd3521e158f5, type: 3}
-  - {fileID: 669643501259936189, guid: 029a704db709fd142b56ecd3bde2800b, type: 3}
-  - {fileID: 5395957942896480392, guid: c4bb9174bd23c284f9ae06978a52d82a, type: 3}
+  - {fileID: 8894377157305632887, guid: 31f5d20c7e3a61e4c8eb67b4cffc9b52, type: 3}
   Enemyname: second
 --- !u!1 &3729403606576176476
 GameObject:

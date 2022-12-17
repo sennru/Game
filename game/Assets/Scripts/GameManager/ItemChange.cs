@@ -73,7 +73,6 @@ public class ItemChange : MonoBehaviour
                 BackGroundUI[i].SetActive(false);
             }
         }
-        Debug.Log(ItemSelect(MoveVec, Items));
     }
 
     bool CircleMoveLimit(float radius, Vector3 MoveVector)

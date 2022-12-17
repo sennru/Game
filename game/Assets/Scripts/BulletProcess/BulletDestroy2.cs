@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CaluculateExtention;
 
 public class BulletDestroy2 : MonoBehaviour
 {
@@ -13,10 +14,7 @@ public class BulletDestroy2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var x = gameObject.transform.position.x - MyPosition.position.x;
-        var y = gameObject.transform.position.y - MyPosition.position.y;
-        var z = gameObject.transform.position.z - MyPosition.position.z;
-        Radius = Mathf.Sqrt(x * x + y * y + z * z);
+        Radius = PositionCalculate.Distance(gameObject.transform.position, MyPosition.transform.position);
 
         if(Radius > 20f)
         {

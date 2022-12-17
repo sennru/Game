@@ -21,7 +21,7 @@ public class CloneEnemy : MonoBehaviour
     public void Clone(GameObject enemy, Vector3 position, float appear, int number)
     {
         sec[number] += Time.deltaTime;
-        if (sec[number] > appear)
+        if (sec[number] > appear && GameObject.FindGameObjectsWithTag("Enemy").Length < 150)
         {
             Instantiate(enemy, pos, Quaternion.identity);
             sec[number] = 0f;
@@ -70,7 +70,7 @@ public class CloneEnemy : MonoBehaviour
 
     void BossState(enemyUnit enemy)
     {
-        if (seconds > 100f && BossAppear == true)
+        if (seconds > 100f && BossAppear == true && GameObject.FindGameObjectsWithTag("Enemy").Length < 150)
         {
             BossAppear = false;
             Clone(Enemy[4], pos, enemy.boss.appear, 4);

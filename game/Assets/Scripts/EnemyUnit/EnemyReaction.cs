@@ -37,16 +37,17 @@ public class EnemyReaction : MonoBehaviour
 
     void Start()
     {
-        ItemGacha1 = new Gacha("Slow", "Use", 1, 1, Exitems[0]);
+        /*ItemGacha1 = new Gacha("Slow", "Use", 1, 1, Exitems[0]);
         ItemGacha2 = new Gacha("Cure", "Use", 2, 1, Exitems[1]);
         ItemGacha3 = new Gacha("Bomb", "Use", 3, 1, Exitems[2]);
         ItemGacha4 = new Gacha("Heist", "Use", 4, 1, Exitems[3]);
         ItemGacha5 = new Gacha("ExpItem", "Exp", 1, 10, Exitems[4]);
-        /*ItemGachaLists.Add(ItemGacha1);
+        ItemGachaLists.Add(ItemGacha1);
         ItemGachaLists.Add(ItemGacha2);
         ItemGachaLists.Add(ItemGacha3);
         ItemGachaLists.Add(ItemGacha4);
         ItemGachaLists.Add(ItemGacha5);*/
+
         swordSkillSystem2 = SecondKatana.GetComponent<SwordSkillSystem2>();
         swordSkillSystem3 = thirdKatana.GetComponent<SwordSkillSystem3>();
         Hp = UnitStatus(Enemyname).Hp;
@@ -67,7 +68,7 @@ public class EnemyReaction : MonoBehaviour
         if (Hp <= 0)
         {
             //Instantiate(gachaSystem.ItemGacha(ItemGachaList).ItemObject, gameObject.transform.position, Quaternion.identity);
-            Instantiate(Exitems[4], gameObject.transform.position, Quaternion.identity);
+            Instantiate(Exitems[0], gameObject.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
             ScoreUI.Score += UnitStatus(Enemyname).getScore;
         }
@@ -153,25 +154,12 @@ public class EnemyReaction : MonoBehaviour
     {
         if(other.gameObject.name == "ZoneAttack1(Clone)" && ZoneInterval == true)
         {
-            if(swordSkillSystem2.IsSuccess == true)
-            {
-                StartCoroutine(ZoneHit(param.SwordDamage3));
-            }
-            else
-            {
-                StartCoroutine(ZoneHit(swordSkillSystem2.DamageControl));
-            }
+            StartCoroutine(ZoneHit(swordSkillSystem2.DamageControl));
         }
         if(other.gameObject.name == "ZoneAttack2(Clone)" && ZoneInterval == true)
         {
-            if (swordSkillSystem3.IsSuccess == true)
-            {
-                StartCoroutine(ZoneHit(param.SwordDamage4));
-            }
-            else
-            {
-                StartCoroutine(ZoneHit(swordSkillSystem3.DamageControl));
-            }        }
+            StartCoroutine(ZoneHit(swordSkillSystem3.DamageControl));
+        }
     }
 
     IEnumerator ZoneHit(float Damage)

@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class DamageAndCostManager : MonoBehaviour
 {
-    public enum DamageAndCost
-    {
-
-    }
+    public float multiple; 
     public float SwordDamage1;
     public float SwordDamage2;
     public float SwordDamage3;
@@ -24,32 +21,20 @@ public class DamageAndCostManager : MonoBehaviour
     public int CostGun3;
 
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-        SwordDamage1 = 50f;
-        SwordDamage2 = 200f;
-        SwordDamage3 = 120f;
-        SwordDamage4 = 120f;
-        GunDamage1 = 10f;
-        GunDamage2 = 100f;
-        GunDamage3 = 800f;
-        CostSword2 = 500;
+        SwordDamage1 = 50f * multiple;
+        SwordDamage2 = 400f * multiple;
+        SwordDamage3 = 120f * multiple;
+        SwordDamage4 = 120f * multiple;
+        GunDamage1 = 30f * multiple;
+        GunDamage2 = 100f * multiple;
+        GunDamage3 = 800f * multiple;
+        CostSword2 = 200;
         CostSword3 = 700;
         CostSword4 = 1500;
         CostGun1 = 4;
         CostGun2 = 50;
         CostGun3 = 1000;
-    }
-
-    // Update is called once per frame
-    public void DamageBuff(float Buff)
-    {
-        SwordDamage1 = 50f * Buff;
-        SwordDamage2 = 200f * Buff;
-        SwordDamage3 = 120f * Buff;
-        SwordDamage4 = 120f * Buff;
-        GunDamage1 = 10f * Buff;
-        GunDamage2 = 100f * Buff;
-        GunDamage3 = 800f * Buff;
     }
 }

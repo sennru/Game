@@ -29,21 +29,21 @@ public class ExItem : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            switch(gameObject.name)
+            switch(transform.parent.name)
             {
-                case "ExCube1":
+                case "ExCube1(Clone)":
                     EnergyCount(Enemy.firstEnemy);
                     break;
-                case "ExCube2":
+                case "ExCube2(Clone)":
                     EnergyCount(Enemy.secondEnemy);
                     break;
-                case "ExCube3":
+                case "ExCube3(Clone)":
                     EnergyCount(Enemy.thirdEnemy);
                     break;
-                case "ExCube4":
+                case "ExCube4(Clone)":
                     EnergyCount(Enemy.lastEnemy);
                     break;
-                case "ExCube5":
+                case "ExCube5(Clone)":
                     EnergyCount(Enemy.boss);
                     break;
             }

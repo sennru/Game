@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class DebugOnly : MonoBehaviour
 {
+    ScoreManager Score;
     EnergyManager energyManager;
     PlayerMove Player;
     public GameObject En;
-    public Text scoreNumber;
-    int score;
     [SerializeField] bool IsCheat;
 
     void Start()
     {
+        Score = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         energyManager = En.GetComponent<EnergyManager>();
         Player = GameObject.Find("Player").GetComponent<PlayerMove>();
     }
@@ -45,9 +45,15 @@ public class DebugOnly : MonoBehaviour
             }
             if (Input.GetKeyDown("v"))
             {
-                score = int.Parse(scoreNumber.text);
-                score += 1000;
-                scoreNumber.text = score.ToString();
+                Score.Score += 1000;
+            }
+
+            if (Input.GetKeyDown("p"))
+            {
+                foreach(var n in GameObject.FindGameObjectsWithTag("Enemy"))
+                {
+                    Destroy(n);
+                }
             }
 
         }

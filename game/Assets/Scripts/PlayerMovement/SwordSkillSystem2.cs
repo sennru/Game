@@ -14,8 +14,8 @@ public class SwordSkillSystem2 : MonoBehaviour
 
     float Value;
     bool ZoneIsOn = true;
-    public bool IsSuccess = true;
     public float DamageControl;
+
     void Start()
     {
         Ready = gameObject.GetComponent<AudioSource>();
@@ -41,22 +41,14 @@ public class SwordSkillSystem2 : MonoBehaviour
                 Ready.clip = IAISound[1];
                 Ready.time = 0.3f;
                 Ready.Play();
-                if (Value <= 0.65f && Value >= 0.35f)
-                {
-                    Zone.transform.localScale = new Vector3(10f, 10f, 10f);
-                    StartCoroutine(ZoneAttack());
-                    IsSuccess = true;
-                }
-                else
-                {
-                    //ç≈ëÂíºåaÉ”7, ç≈è¨íºåaÉ”4.55
-                    var x = Mathf.Abs(0.5f - Value);
-                    var ZoneScale = LinearFunctionValue.GetValue(0.15f, 0.5f, 7f, 4.55f, x);
-                    DamageControl = LinearFunctionValue.GetValue(0.15f, 0.5f, 100f, 80f, x);
-                    IsSuccess = false;
-                    Zone.transform.localScale = new Vector3(ZoneScale, ZoneScale, ZoneScale);
-                    StartCoroutine(ZoneAttack());
-                }
+
+                //ç≈ëÂíºåaÉ”7, ç≈è¨íºåaÉ”4.55
+                var x = Mathf.Abs(0.5f - Value);
+                var ZoneScale = LinearFunctionValue.GetValue(0f, 0.5f, 10f, 5f, x);
+                //ç≈ëÂ-ç≈è¨É_ÉÅÅ[ÉW = 50
+                DamageControl = LinearFunctionValue.GetValue(0f, 0.5f, param.SwordDamage3, param.SwordDamage3 - 50f, x);
+                Zone.transform.localScale = new Vector3(ZoneScale, ZoneScale, ZoneScale);
+                StartCoroutine(ZoneAttack());
             }
         }
     }
