@@ -5,57 +5,80 @@ using UnityEngine.UI;
 
 public class SwordSkill : MonoBehaviour
 {
-    [SerializeField]
-    GameObject SwordSkillObject;
-    [SerializeField]
+    public GameObject SwordSkillObject;
     public GameObject[] katanaIsOn;
     public GameObject SwordIsOn;
-    Slider SkillSlider;
+    protected Slider SkillSlider;
     Animator SliderMovement;
-    public float SliderValue;
-    float Speed;
-    public bool IsSuccess;
+    float sliderspeed;
+    protected float Value;
+    protected EnergyManager energyManager;
+    protected DamageAndCostManager param;
 
     public void Start()
     {
         SkillSlider = SwordSkillObject.GetComponent<Slider>();
         SliderMovement = SwordSkillObject.GetComponent<Animator>();
         SwordSkillObject.SetActive(false);
+        param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
+        energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
     }
 
 
     private void Update()
     {
-        SwordSkillDefinition(0.3f);
+        SwordSkillDefinition();
+        if (EnergyLimit(param.CostSword2))
+        {
+            SwordSkill1();
+        }
+        if (EnergyLimit(param.CostSword3))
+        {
+            SwordSkill2();
+        }
+        if (EnergyLimit(param.CostSword4))
+        {
+            SwordSkill3();
+        }
     }
-    public void SwordSkillDefinition(float AttackControl)
+    public void SwordSkillDefinition()
     {
-        if (Input.GetMouseButtonDown(0) && katanaIsOn[0].activeSelf == false && SwordIsOn.activeSelf == true)
+        if(katanaIsOn[0].activeSelf == false && SwordIsOn.activeSelf == true)
         {
-            SwordSkillObject.SetActive(true);
-            if(katanaIsOn[2].activeSelf == true)//‹Z‘I‘ð‚ªƒŒƒxƒ‹‚R‚ÌŽž
+            if (Input.GetMouseButtonDown(0))
             {
-                Speed = 1.4f;
-                SliderMovement.SetFloat("Speed", Speed);
+                SwordSkillObject.SetActive(true);
+                if (katanaIsOn[2].activeSelf == true)//‹Z‘I‘ð‚ªƒŒƒxƒ‹‚R‚ÌŽž
+                {
+                    sliderspeed = 1.4f; //ƒXƒ‰ƒCƒ_[‚Ì‘¬‚³(ƒŒƒxƒ‹2‚ÌŽž‚Æ”äŠr)
+                    SliderMovement.SetFloat("Speed", sliderspeed);
+                }
+                else if (katanaIsOn[3].activeSelf == true) //‹Z‘I‘ð‚ªƒŒƒxƒ‹4‚ÌŽž
+                {
+                    sliderspeed = 1.6f * (1f / 0.3f); //ŽžŠÔŒ¸‘¬•ª‚ÌæŽZAƒXƒ‰ƒCƒ_[‚Ì‘¬‚³(ƒŒƒxƒ‹2‚ÌŽž‚Æ”äŠr)
+                    SliderMovement.SetFloat("Speed", sliderspeed);
+                }
             }
-            else if(katanaIsOn[3].activeSelf == true)
+            if (Input.GetMouseButtonUp(0))
             {
-                Speed = 1.6f * (1f / 0.3f); //ŽžŠÔŒ¸‘¬•ª‚ÌæŽZ
-                SliderMovement.SetFloat("Speed", Speed);
+                SwordSkillObject.SetActive(false);
             }
-        }
-        if (Input.GetMouseButtonUp(0) && katanaIsOn[0].activeSelf == false && SwordIsOn.activeSelf == true)
-        {
-            SliderValue = SkillSlider.value;
-            if (SliderValue >= 0.5f - (AttackControl / 2f) && SliderValue <= 0.5f + (AttackControl / 2f))
-            {
-                IsSuccess = true;
-            }
-            else
-            {
-                IsSuccess = false;
-            }
-            SwordSkillObject.SetActive(false);
         }
     }
+
+    bool EnergyLimit(int Limit)
+    {
+        if(energyManager.Energy >= Limit)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual void SwordSkill1() { }
+    public virtual void SwordSkill2() { }
+    public virtual void SwordSkill3() { }
 }

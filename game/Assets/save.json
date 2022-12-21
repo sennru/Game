@@ -1,0 +1,40 @@
+{
+    "dateAndTime": "2022/12/22/0:48:20",
+    "status": [
+        {
+            "hp": 200.0,
+            "damage": 2.0,
+            "appear": 2.0,
+            "score": 2,
+            "speed": 2.0
+        },
+        {
+            "hp": 400.0,
+            "damage": 4.0,
+            "appear": 4.0,
+            "score": 4,
+            "speed": 4.0
+        },
+        {
+            "hp": 1000.0,
+            "damage": 10.0,
+            "appear": 10.0,
+            "score": 10,
+            "speed": 10.0
+        },
+        {
+            "hp": 2000.0,
+            "damage": 20.0,
+            "appear": 20.0,
+            "score": 20,
+            "speed": 20.0
+        },
+        {
+            "hp": 3359.989990234375,
+            "damage": 20.0,
+            "appear": 20.0,
+            "score": 20,
+            "speed": 20.0
+        }
+    ]
+}

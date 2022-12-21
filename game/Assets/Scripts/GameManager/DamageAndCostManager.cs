@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class DamageAndCostManager : MonoBehaviour
 {
-    public float multiple; 
+    public float multiple = 1f; 
+
     public float SwordDamage1;
     public float SwordDamage2;
     public float SwordDamage3;

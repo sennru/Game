@@ -25,8 +25,6 @@ public class PlayerUnit : MonoBehaviour
     public Text LvUI;
 
     bool InvincibleTime = true;
-    public float GunDamage = 20f;
-    public float SwordDamage = 100f;
 
     private void Start()
     {

@@ -3,40 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using CaluculateExtention;
 
-public class SwordSkillSystem2 : MonoBehaviour
+public class SwordSkillSystem2 : SwordSkill
 {
-    public GameObject Zone, SwordIsOn, katanaIsOn, PlayerTransform;
-    EnergyManager energyManager;
-    SwordSkill swordSkill;
-    DamageAndCostManager param;
+    public GameObject Zone, PlayerTransform;
     public AudioSource Ready;
     public AudioClip[] IAISound;
-
-    float Value;
-    bool ZoneIsOn = true;
     public float DamageControl;
 
-    void Start()
-    {
-        Ready = gameObject.GetComponent<AudioSource>();
-        swordSkill = GameObject.Find("SwordSkillManager").GetComponent<SwordSkill>();
-        energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
-        param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
-    }
+    const float LOWER_LIMIT = 50f;
 
-    void Update()
+    public override void SwordSkill2()
     {
-        if (energyManager.Energy >= param.CostSword3)
+        if(SwordIsOn.activeSelf == true && katanaIsOn[2].activeSelf == true)
         {
-            if (Input.GetMouseButtonDown(0) && SwordIsOn.activeSelf == true && katanaIsOn.activeSelf == true)
+            if (Input.GetMouseButtonDown(0))
             {
                 Ready.clip = IAISound[0];
                 Ready.time = 0f;
                 Ready.PlayOneShot(IAISound[0]);
             }
-            if (Input.GetMouseButtonUp(0) && SwordIsOn.activeSelf == true && katanaIsOn.activeSelf == true)
+            if (Input.GetMouseButtonUp(0))
             {
-                Value = swordSkill.SliderValue;
+                Value = SkillSlider.value;
                 energyManager.Energy -= param.CostSword3;
                 Ready.clip = IAISound[1];
                 Ready.time = 0.3f;
@@ -46,17 +34,11 @@ public class SwordSkillSystem2 : MonoBehaviour
                 var x = Mathf.Abs(0.5f - Value);
                 var ZoneScale = LinearFunctionValue.GetValue(0f, 0.5f, 10f, 5f, x);
                 //ç≈ëÂ-ç≈è¨É_ÉÅÅ[ÉW = 50
-                DamageControl = LinearFunctionValue.GetValue(0f, 0.5f, param.SwordDamage3, param.SwordDamage3 - 50f, x);
+                DamageControl = Mathf.Floor(LinearFunctionValue.GetValue(0f, 0.5f, param.SwordDamage3, param.SwordDamage3 - LOWER_LIMIT, x));
                 Zone.transform.localScale = new Vector3(ZoneScale, ZoneScale, ZoneScale);
-                StartCoroutine(ZoneAttack());
+                Instantiate(Zone, PlayerTransform.transform.position, PlayerTransform.transform.rotation);
             }
         }
-    }
-    IEnumerator ZoneAttack()
-    {
-        ZoneIsOn = false;
-        Instantiate(Zone, PlayerTransform.transform.position, PlayerTransform.transform.rotation);
-        yield return new WaitForSeconds(0.5f);
-        ZoneIsOn = true;
+        
     }
 }

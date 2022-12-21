@@ -8,14 +8,11 @@ public class ExItem : MonoBehaviour
     public EnergyManager energyManager;
     [System.NonSerialized]
     public enemyUnit Enemy = new enemyUnit();
-    [System.NonSerialized]
-    public GameObject EnergyMng;
-    int ExItemNumber;
-    // Start is called before the first frame update
+
     public void Start()
     {
-        EnergyMng = GameObject.Find("EnergyManager");
-        energyManager = EnergyMng.GetComponent<EnergyManager>();
+        energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
+
     }
 
     public void EnergyCount(Enemyinfo Unit)

@@ -97,6 +97,5 @@ public class CloneEnemy : MonoBehaviour
         thirdEnemyState(Unit);
         lastEnemyState(Unit);
         BossState(Unit);
-        //Debug.Log(seconds);
     }
 }

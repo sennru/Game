@@ -7,16 +7,16 @@ public class EnemyReaction : MonoBehaviour
 {
     follow Enemyfollow = new follow();
     enemyUnit Unit = new enemyUnit();
-    SwordSkill swordSkill;
     DamageAndCostManager param;
+
+    SwordSkillSystem1 swordSkillSystem1;
     SwordSkillSystem2 swordSkillSystem2;
     SwordSkillSystem3 swordSkillSystem3;
     ScoreManager ScoreUI;
+    public GameObject FirstKatana;
     public GameObject SecondKatana;
     public GameObject thirdKatana;
-    float Hp;
-    float MaxHp;
-    float DownSpeed;
+    float Hp, MaxHp, DownSpeed;
     public int score;
     public Slider slider;
     public GameObject HpGage;
@@ -37,6 +37,8 @@ public class EnemyReaction : MonoBehaviour
 
     void Start()
     {
+
+        Debug.Log(Unit.firstEnemy.appear);
         /*ItemGacha1 = new Gacha("Slow", "Use", 1, 1, Exitems[0]);
         ItemGacha2 = new Gacha("Cure", "Use", 2, 1, Exitems[1]);
         ItemGacha3 = new Gacha("Bomb", "Use", 3, 1, Exitems[2]);
@@ -47,13 +49,11 @@ public class EnemyReaction : MonoBehaviour
         ItemGachaLists.Add(ItemGacha3);
         ItemGachaLists.Add(ItemGacha4);
         ItemGachaLists.Add(ItemGacha5);*/
-
-        swordSkillSystem2 = SecondKatana.GetComponent<SwordSkillSystem2>();
-        swordSkillSystem3 = thirdKatana.GetComponent<SwordSkillSystem3>();
+        swordSkillSystem1 = GameObject.Find("SwordWave").GetComponent<SwordSkillSystem1>();
+        swordSkillSystem2 = GameObject.Find("FirstZone").GetComponent<SwordSkillSystem2>();
+        swordSkillSystem3 = GameObject.Find("SecondZone").GetComponent<SwordSkillSystem3>();
         Hp = UnitStatus(Enemyname).Hp;
-        //Damage = Unit.firstEnemy.Damage;
         MaxHp = Hp;
-        swordSkill = GameObject.Find("SwordSkillManager").GetComponent<SwordSkill>();
         slider.value = 1f;
         ScoreUI = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         HitSound = GameObject.Find("Animation").GetComponent<AudioSource>();
@@ -131,20 +131,11 @@ public class EnemyReaction : MonoBehaviour
             if (other.gameObject.name == "DamageCollider(Clone)")
             {
                 Hp -= param.SwordDamage1;
-                Debug.Log(2);
             }
             if(other.gameObject.name == "Cube(Clone)")
             {
-                if(swordSkill.IsSuccess == true)
-                {
-                    Hp -= param.SwordDamage2;
-                    Debug.Log("300Damage");
-                }
-                else if(swordSkill.IsSuccess == false)
-                {
-                    Hp -= param.SwordDamage2 / 3;
-                    Debug.Log("100Damage");
-                }
+                Hp -= swordSkillSystem1.DamageControl;
+                Debug.Log(swordSkillSystem1.DamageControl);
             }
             HpGage.SetActive(true);
             HitSound.PlayOneShot(HitSound.clip);

@@ -501,6 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7330dd94457a78d48ad32c3b8ad80318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FirstKatana: {fileID: 4971138544515355090, guid: 742fbeb3515058f44afbade05d0ecb58, type: 3}
   SecondKatana: {fileID: 8566795079063848680, guid: 4c135c3c0e3a7394286fbc495cf34cdb, type: 3}
   thirdKatana: {fileID: 509388654688481477, guid: 8509817258e4ae64a88d3306099c2abf, type: 3}
   score: 0
