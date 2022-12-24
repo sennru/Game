@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject[] walls;
     EnergyManager energyManager;
     ItemChange itemChange;
-    DamageAndCostManager DamageManager;
+    PropertyManager DamageManager;
 
 
     private void Start()
@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
         costs = true;
         controller = GetComponent<CharacterController>();
 
-        DamageManager = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
+        DamageManager = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
         itemChange = GameObject.Find("ItemChangeManager").GetComponent<ItemChange>();
 

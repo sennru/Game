@@ -18,7 +18,7 @@ public class PlayerUnit : MonoBehaviour
     public GameObject Sword;
     public GameObject Gun;
     public GameObject IsOnKatana;
-    enemyUnit enemy = new enemyUnit();
+    PropertyManager enemy;
     ScoreManager Score;
     [System.NonSerialized]
     public int Lv, Exp;
@@ -28,6 +28,7 @@ public class PlayerUnit : MonoBehaviour
 
     private void Start()
     {
+        enemy = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         for(int i = 0; i < HpImages.Length; i++)
         {
             HpImages[i] = GameObject.Find("HpUI").transform.GetChild(i).gameObject;
@@ -143,23 +144,23 @@ public class PlayerUnit : MonoBehaviour
             InvincibleTime = !InvincibleTime;
             if (enemyObject.name == "Enemy1(Clone)")
             {
-                Hp -= enemy.firstEnemy.Damage;
+                Hp -= enemy.Enemies[0].Damage;
             }
             if (enemyObject.name == "Enemy2(Clone)")
             {
-                Hp -= enemy.secondEnemy.Damage;
+                Hp -= enemy.Enemies[1].Damage;
             }
             if (enemyObject.name == "Enemy3(Clone)")
             {
-                Hp -= enemy.thirdEnemy.Damage;
+                Hp -= enemy.Enemies[2].Damage;
             }
             if (enemyObject.name == "Enemy4(Clone)")
             {
-                Hp -= enemy.lastEnemy.Damage;
+                Hp -= enemy.Enemies[3].Damage;
             }
             if (enemyObject.name == "Boss(Clone)")
             {
-                Hp -= enemy.boss.Damage;
+                Hp -= enemy.Enemies[4].Damage;
             }
             damageReactionUI.Play("DamageShake", 0, 0.0f);
             DamageSound.Play();

@@ -16,6 +16,8 @@ TagManager:
   - Item
   - MoveFloor
   - DamageBound
+  - BoundGimmick
+  - Paramator
   layers:
   - Default
   - TransparentFX

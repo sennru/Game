@@ -10,12 +10,21 @@ public class JsonCreate : EditorWindow
     bool Loading = false;
     bool newData = false;
     bool IsMultiple = false;
+    bool[] paramDisplay = new bool[5];
     string InputPath;
     string fullPath;
+    string[] SDname = new string[4];
+    string[] GDname = new string[3];
+    string[] SCname = new string[3];
+    string[] GCname = new string[3];
     float[,] value = new float[5,5];
     float[,] multiple = new float[4, 5];
+    public float[] swordDamage = new float[4];
+    public float[] gunDamage = new float[3];
+    public int[] swordCost = new int[3];
+    public int[] gunCost = new int[3];
 
-    [MenuItem("StageMaker/EnemyStatus")]
+    [MenuItem("StageMaker/EnemyStatus/EditFile")]
     static void Open()
     {
         EditorWindow.GetWindow<JsonCreate>("EnemyStatus");
@@ -23,10 +32,11 @@ public class JsonCreate : EditorWindow
 
     private void OnGUI()
     {
-        minSize = new Vector2(800, 500);
+        minSize = new Vector2(800, 700);
         int instanceID = Selection.activeInstanceID;
         string path = AssetDatabase.GetAssetPath(instanceID);
         fullPath = Path.GetFullPath(path);
+        NameStrings();
 
         if (GUILayout.Button("NewData"))
         {
@@ -44,20 +54,9 @@ public class JsonCreate : EditorWindow
         }
         if (Loading)
         {
-            EditorGUIUtility.labelWidth = 50;
+            EditorGUIUtility.labelWidth = 100;
+            EditorGUIUtility.fieldWidth = 50;
             EditData();
-            
-        }
-
-        if (GUILayout.Button("Multiple"))
-        {
-            IsMultiple = true;
-            LoadMultipleData(fullPath);
-        }
-        if (IsMultiple)
-        {
-            EditorGUIUtility.labelWidth = 50;
-            MultipleData(fullPath);
         }
 
         if (GUILayout.Button("SaveData"))
@@ -84,6 +83,7 @@ public class JsonCreate : EditorWindow
             CreateCopy();
         }
 
+        ComperisonParam();
     }
 
     public void savePlayerData(Status state, string Path)
@@ -125,7 +125,7 @@ public class JsonCreate : EditorWindow
     void LoadData(string Path)
     {
         Status state = loadPlayerData(Path);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < state.status.Length; i++)
         {
             value[i, 0] = state.status[i].hp;
             value[i, 1] = state.status[i].damage;
@@ -133,49 +133,61 @@ public class JsonCreate : EditorWindow
             value[i, 3] = state.status[i].score;
             value[i, 4] = state.status[i].speed;
         }
+        swordDamage = state.property.swordDamage;
+        gunDamage = state.property.gunDamage;
+        swordCost = state.property.swordCost;
+        gunCost = state.property.gunCost;
     }
 
-    void LoadMultipleData(string Path)
-    {
-        LoadData(Path);
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 5; j++)
-            {
-                multiple[i, j] = value[i + 1, j] / value[0, j];
-            }
-        }
-    }
-
-    void MultipleData(string Path)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            EditorGUILayout.BeginHorizontal();
-            {
-                multiple[i, 0] = EditorGUILayout.FloatField("HP", multiple[i, 0]);
-                multiple[i, 1] = EditorGUILayout.FloatField("Damage", multiple[i, 1]);
-                multiple[i, 2] = EditorGUILayout.FloatField("Appear", multiple[i, 2]);
-                multiple[i, 3] = EditorGUILayout.FloatField("Score", multiple[i, 3]);
-                multiple[i, 4] = EditorGUILayout.FloatField("Speed", multiple[i, 4]);
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-
-    }
     void EditData()
     {
-        for(int i = 0; i < 5; i++)
+        paramDisplay[0] = EditorGUILayout.Foldout(paramDisplay[0], "EnemyParamator");
+        if (paramDisplay[0])
         {
-            EditorGUILayout.BeginHorizontal();
+            for (int i = 0; i < 5; i++)
             {
-                value[i,0] = EditorGUILayout.FloatField("HP", value[i,0]);
-                value[i,1] = EditorGUILayout.FloatField("Damage", value[i, 1]);
-                value[i,2] = EditorGUILayout.FloatField("Appear", value[i, 2]);
-                value[i, 3] = EditorGUILayout.FloatField("Score", value[i, 3]);
-                value[i,4] = EditorGUILayout.FloatField("Speed", value[i, 4]);
+                EditorGUILayout.BeginHorizontal();
+                {
+                    value[i, 0] = EditorGUILayout.FloatField("HP", value[i, 0]);
+                    value[i, 1] = EditorGUILayout.FloatField("Damage", value[i, 1]);
+                    value[i, 2] = EditorGUILayout.FloatField("Appear", value[i, 2]);
+                    value[i, 3] = EditorGUILayout.FloatField("Score", value[i, 3]);
+                    value[i, 4] = EditorGUILayout.FloatField("Speed", value[i, 4]);
+                }
+                EditorGUILayout.EndHorizontal();
             }
-            EditorGUILayout.EndHorizontal();
+        }
+        paramDisplay[1] = EditorGUILayout.Foldout(paramDisplay[1], "SwordDamage");
+        if (paramDisplay[1])
+        {
+            for (int i = 0; i < swordDamage.Length; i++)
+            {
+                swordDamage[i] = EditorGUILayout.FloatField(SDname[i], swordDamage[i]);
+            }
+        }
+        paramDisplay[2] = EditorGUILayout.Foldout(paramDisplay[2], "GunDamage");
+        if (paramDisplay[2])
+        {
+            for (int i = 0; i < gunDamage.Length; i++)
+            {
+                gunDamage[i] = EditorGUILayout.FloatField(GDname[i], gunDamage[i]);
+            }
+        }
+        paramDisplay[3] = EditorGUILayout.Foldout(paramDisplay[3], "SwordCost");
+        if (paramDisplay[3])
+        {
+            for (int i = 0; i < swordCost.Length; i++)
+            {
+                swordCost[i] = EditorGUILayout.IntField(SCname[i], swordCost[i]);
+            }
+        }
+        paramDisplay[4] = EditorGUILayout.Foldout(paramDisplay[4], "GunCost");
+        if (paramDisplay[4])
+        {
+            for (int i = 0; i < gunCost.Length; i++)
+            {
+                gunCost[i] = EditorGUILayout.IntField(GCname[i], gunCost[i]);
+            }
         }
     }
     void SaveData(string Path)
@@ -196,6 +208,10 @@ public class JsonCreate : EditorWindow
             state.status[i].score = (int)value[i, 3];
             state.status[i].speed = float.Parse(value[i, 4].ToString("f2"));
         }
+        state.property.swordDamage = swordDamage;
+        state.property.gunDamage = gunDamage;
+        state.property.swordCost = swordCost;
+        state.property.gunCost = gunCost;
         savePlayerData(state, Path);
     }
     static void CreateCopy()
@@ -218,6 +234,28 @@ public class JsonCreate : EditorWindow
             }
         }
     }
+
+    void NameStrings()
+    {
+        for(int i = 0; i < swordDamage.Length; i++)
+        {
+            SDname[i] = "SwordDamage" + i.ToString();
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            GDname[i] = "GunDamage" + i.ToString();
+            SCname[i] = "SwordCost" + i.ToString();
+            GCname[i] = "GunCost" + i.ToString();
+        }
+    }
+    private static void ComperisonParam()
+    {
+        if (GUILayout.Button("ShowComperison"))
+        {
+            var window = EditorWindow.GetWindow<Comparison>("Comparison");
+            window.ShowAuxWindow();
+        }
+    }
 }
 
 [System.Serializable]
@@ -229,10 +267,158 @@ public class SaveProperty
     public int score;
     public float speed;
 }
-public class Status
+
+[System.Serializable]
+public class DamageAndCost
 {
-    public string dateAndTime;
-    public SaveProperty[] status = new SaveProperty[5];
+    public float[] swordDamage = new float[4];
+    public float[] gunDamage = new float[3];
+    public int[] swordCost = new int[3];
+    public int[] gunCost = new int[3];
+
 }
 
+public class Comparison : EditorWindow
+{
+    string fullPath;
+    bool[] Calculate = new bool[2];
+    bool[] DamageCauculate = new bool[7];
+    bool[] CostCauculate = new bool[6];
+    string[] SDname = new string[4];
+    string[] GDname = new string[3];
+    string[] SCname = new string[3];
+    string[] GCname = new string[3];
+    float[,] value = new float[5, 5];
+    float[,] multiple = new float[4, 5];
+    public float[] swordDamage = new float[4];
+    public float[] gunDamage = new float[3];
+    public int[] swordCost = new int[3];
+    public int[] gunCost = new int[3];
+    Vector2  _scrollPosition = Vector2.zero;
 
+    private void OnGUI()
+    {
+        _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+        minSize = new Vector2(800, 700);
+        int instanceID = Selection.activeInstanceID;
+        string path = AssetDatabase.GetAssetPath(instanceID);
+        fullPath = Path.GetFullPath(path);
+        NameStrings();
+        LoadData(fullPath);
+        DamageCal();
+        EditorGUILayout.EndScrollView();
+    }
+
+    void LoadData(string Path)
+    {
+        Status state = loadPlayerData(Path);
+        for (int i = 0; i < state.status.Length; i++)
+        {
+            value[i, 0] = state.status[i].hp;
+            value[i, 1] = state.status[i].damage;
+            value[i, 2] = state.status[i].appear;
+            value[i, 3] = state.status[i].score;
+            value[i, 4] = state.status[i].speed;
+        }
+        swordDamage = state.property.swordDamage;
+        gunDamage = state.property.gunDamage;
+        swordCost = state.property.swordCost;
+        gunCost = state.property.gunCost;
+    }
+
+    public Status loadPlayerData(string Path)
+    {
+        string datastr;
+        StreamReader reader;
+        reader = new StreamReader(Path);
+        datastr = reader.ReadToEnd();
+        reader.Close();
+        return JsonUtility.FromJson<Status>(datastr);
+    }
+    void DamageCal()
+    {
+        Calculate[0] = EditorGUILayout.Foldout(Calculate[0], "Damage");
+        if (Calculate[0])
+        {
+            EditorGUI.indentLevel = 1;
+            for (int i = 0; i < 4; i++)
+            {
+                DamageCauculate[i] = EditorGUILayout.Foldout(DamageCauculate[i], SDname[i]);
+                if (DamageCauculate[i])
+                {
+                    EditorGUI.indentLevel = 2;
+                    for (int j = 0; j < 5; j++)
+                    {
+
+                        if(i < 2)
+                        {
+                            EditorGUILayout.LabelField("Enemy" + j + "‚Í" + (value[j, 0] / swordDamage[i]).ToString("F2") + "‰ñ‚Å“|‚¹‚Ü‚·");
+                        }
+                        else
+                        {
+                            EditorGUILayout.LabelField("Enemy" + j + "‚Í" + (value[j, 0] / (swordDamage[i] * 10)).ToString("F2") + "‰ñ‚Å“|‚¹‚Ü‚·");
+                        }
+                    }
+                    EditorGUI.indentLevel = 1;
+                }
+            }
+            for(int i = 0; i < 3; i++)
+            {
+                DamageCauculate[i + 4] = EditorGUILayout.Foldout(DamageCauculate[i + 4], GDname[i]);
+                if (DamageCauculate[i + 4])
+                {
+                    EditorGUI.indentLevel = 2;
+                    for (int j = 0; j < 5; j++)
+                    {
+                        EditorGUILayout.LabelField("Enemy" + j + "‚Í" + (value[j, 0] / gunDamage[i]).ToString("F2") + "”­‚Å“|‚¹‚Ü‚·");
+                    }
+                    EditorGUI.indentLevel = 1;
+                }
+
+            }
+        }
+        EditorGUI.indentLevel = 0;
+        Calculate[1] = EditorGUILayout.Foldout(Calculate[1], "Cost");
+        if (Calculate[1])
+        {
+            EditorGUI.indentLevel = 1;
+            for (int i = 0; i < 3; i++)
+            {
+                CostCauculate[i] = EditorGUILayout.Foldout(CostCauculate[i], SCname[i]);
+                if (CostCauculate[i])
+                {
+                    EditorGUI.indentLevel = 2;
+                    for (int j = 0; j < 5; j++)
+                    {
+                        EditorGUILayout.LabelField("‚±‚Ì•Ší‚ðŽg‚¤‚É‚ÍEnemy" + j + "‚ª" + (value[j, 3] / swordDamage[i]).ToString("F2") + "‘Ì•K—v‚Å‚·");
+                    }
+                    EditorGUI.indentLevel = 1;
+                }
+                CostCauculate[i + 3] = EditorGUILayout.Foldout(CostCauculate[i + 3], GCname[i]);
+                if (CostCauculate[i + 3])
+                {
+                    EditorGUI.indentLevel = 2;
+                    for (int j = 0; j < 5; j++)
+                    {
+                        EditorGUILayout.LabelField("‚±‚Ì•Ší‚ðŽg‚¤‚É‚ÍEnemy" + j + "‚ª" + (value[j, 3] / gunDamage[i]).ToString("F2") + "‘Ì•K—v‚Å‚·");
+                    }
+                    EditorGUI.indentLevel = 1;
+                }
+            }
+        }
+    }
+
+    void NameStrings()
+    {
+        for (int i = 0; i < swordDamage.Length; i++)
+        {
+            SDname[i] = "SwordDamage" + i.ToString();
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            GDname[i] = "GunDamage" + i.ToString();
+            SCname[i] = "SwordCost" + i.ToString();
+            GCname[i] = "GunCost" + i.ToString();
+        }
+    }
+}

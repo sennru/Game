@@ -5,7 +5,7 @@ using UnityEngine;
 public class XCameraAngle : MonoBehaviour
 {
     public float Sensitivity = 1f;
-    const float MAX_TURN_ANGLE = 55f;
+    const float MAX_TURN_ANGLE = 70f;
     void Update()
     {
         if (!Input.GetMouseButton(2))

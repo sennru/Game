@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GunController : MonoBehaviour
 {
-    DamageAndCostManager param;
+    PropertyManager param;
     public GameObject bulletPrefab;
     AudioSource GunSound;
     public float shotSpeed;
@@ -23,7 +23,7 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
+        param = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         playerUnit = GameObject.Find("Player").GetComponent<PlayerUnit>();
         GunSound = this.GetComponent<AudioSource>();
         energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
@@ -51,7 +51,7 @@ public class GunController : MonoBehaviour
 
     IEnumerator GunShot(GameObject HowBullet)
     {
-        if(HowBullet == Bullets[0] || (HowBullet == Bullets[1] && energyManager.Energy >= param.CostGun2) || (HowBullet == Bullets[2] && energyManager.Energy >= param.CostGun3))
+        if(HowBullet == Bullets[0] || (HowBullet == Bullets[1] && energyManager.Energy >= param.state.property.gunCost[1]) || (HowBullet == Bullets[2] && energyManager.Energy >= param.state.property.gunCost[2]))
         {
             delay = true;
             GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position, Quaternion.Euler(transform.parent.eulerAngles.x - 90, transform.parent.eulerAngles.y, 0));
@@ -67,13 +67,13 @@ public class GunController : MonoBehaviour
             else if (HowBullet == Bullets[1])
             {
                 bullets -= 3;
-                energyManager.Energy -= param.CostGun2;
+                energyManager.Energy -= param.state.property.gunCost[1];
                 yield return new WaitForSeconds(ShotInterval * 2.33f);
             }
             else if (HowBullet == Bullets[2])
             {
                 bullets -= MaxBullets;
-                energyManager.Energy -= param.CostGun3;
+                energyManager.Energy -= param.state.property.gunCost[2];
                 yield return new WaitForSeconds(1);
             }
 
@@ -84,21 +84,21 @@ public class GunController : MonoBehaviour
     void Reload()
     {
 
-        if (Input.GetKeyDown("r") && energyManager.Energy >= param.CostGun1)
+        if (Input.GetKeyDown("r") && energyManager.Energy >= param.state.property.gunCost[0])
         {
             GunSound.clip = ReloadSound;
             GunSound.PlayOneShot(ReloadSound);
             for (int i = 1; i <= MaxBullets; i++)
             {
-                if (energyManager.Energy < param.CostGun1 || bullets >= MaxBullets)
+                if (energyManager.Energy < param.state.property.gunCost[0] || bullets >= MaxBullets)
                 {
                     break;
                 }
                 bullets++;
-                energyManager.Energy -= param.CostGun1;
+                energyManager.Energy -= param.state.property.gunCost[0];
             }
         }
-        else if (Input.GetKeyDown("r") && energyManager.Energy < param.CostGun1)
+        else if (Input.GetKeyDown("r") && energyManager.Energy < param.state.property.gunCost[0])
         {
             GunSound.clip = BulletsEmpty;
             GunSound.PlayOneShot(BulletsEmpty);

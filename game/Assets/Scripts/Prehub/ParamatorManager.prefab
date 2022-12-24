@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2460137553229947131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2460137553229947077}
+  - component: {fileID: 2460137553229947130}
+  m_Layer: 0
+  m_Name: ParamatorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2460137553229947077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460137553229947131}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -973.62054, y: -643.176, z: 6.2039504}
+  m_LocalScale: {x: 2.034976, y: 2.034976, z: 2.034976}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2460137553229947130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460137553229947131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d44da79742f5ec743a03829bf20404ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiple: 1
+  state:
+    dateAndTime: 
+    status:
+    - hp: 0
+      damage: 0
+      appear: 0
+      score: 0
+      speed: 0
+    - hp: 0
+      damage: 0
+      appear: 0
+      score: 0
+      speed: 0
+    - hp: 0
+      damage: 0
+      appear: 0
+      score: 0
+      speed: 0
+    - hp: 0
+      damage: 0
+      appear: 0
+      score: 0
+      speed: 0
+    - hp: 0
+      damage: 0
+      appear: 0
+      score: 0
+      speed: 0
+    property:
+      swordDamage:
+      - 0
+      - 0
+      - 0
+      - 0
+      gunDamage:
+      - 0
+      - 0
+      - 0
+      swordCost: 000000000000000000000000
+      gunCost: 000000000000000000000000
+  Enemies:
+  - Hp: 0
+    Damage: 0
+    appear: 0
+    getScore: 0
+    speed: 0
+  - Hp: 0
+    Damage: 0
+    appear: 0
+    getScore: 0
+    speed: 0
+  - Hp: 0
+    Damage: 0
+    appear: 0
+    getScore: 0
+    speed: 0
+  - Hp: 0
+    Damage: 0
+    appear: 0
+    getScore: 0
+    speed: 0
+  - Hp: 0
+    Damage: 0
+    appear: 0
+    getScore: 0
+    speed: 0

@@ -10,15 +10,18 @@ public class CloneEnemy : MonoBehaviour
     float seconds;
     float[] sec = new float[5];
     Vector3 pos;
-    enemyUnit Unit = new enemyUnit();
+    PropertyManager Unit;
 
     bool BossAppear = true;
     //ìGèoåªãyÇ—ÇªÇÃïpìxÇ∆à íu
     private void Start()
     {
+        Unit = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         WorldTimer = GameObject.Find("WorldTimer");
+
+        Debug.Log(Unit.Enemies[0].Hp);
     }
-    public void Clone(GameObject enemy, Vector3 position, float appear, int number)
+    public void Clone(GameObject enemy, float appear, int number)
     {
         sec[number] += Time.deltaTime;
         if (sec[number] > appear && GameObject.FindGameObjectsWithTag("Enemy").Length < 150)
@@ -29,51 +32,51 @@ public class CloneEnemy : MonoBehaviour
         //àÍíËÇÃïbêîÇ≈èoåª
     }
 
-    void firstEnemyState(enemyUnit enemy)
+    void firstEnemyState()
     {
         if (seconds < 60f)
         {
-            Clone(Enemy[0], pos, enemy.firstEnemy.appear, 0);
+            Clone(Enemy[0], Unit.Enemies[0].appear, 0);
         }
     }
-    void secondEnemyState(enemyUnit enemy)
+    void secondEnemyState()
     {
         if (seconds > 20f && seconds < 100f)
         {
-            Clone(Enemy[1], pos, enemy.secondEnemy.appear, 1);
+            Clone(Enemy[1], Unit.Enemies[1].appear, 1);
         }
     }
 
-    void thirdEnemyState(enemyUnit enemy)
+    void thirdEnemyState()
     {
         if (seconds > 40f && seconds < 100f)
         {
-            Clone(Enemy[2], pos, enemy.thirdEnemy.appear, 2);
+            Clone(Enemy[2], Unit.Enemies[2].appear, 2);
         }
         else if (seconds > 100f)
         {
-            Clone(Enemy[2], pos, enemy.thirdEnemy.appear - 0.2f, 2);
+            Clone(Enemy[2], Unit.Enemies[2].appear - 0.2f, 2);
         }
     }
 
-    void lastEnemyState(enemyUnit enemy)
+    void lastEnemyState()
     {
         if (seconds > 60f && seconds < 100f)
         {
-            Clone(Enemy[3], pos, enemy.lastEnemy.appear, 3);
+            Clone(Enemy[3], Unit.Enemies[3].appear, 3);
         }
         else if (seconds > 100f)
         {
-            Clone(Enemy[3], pos, enemy.lastEnemy.appear - 0.2f, 3);
+            Clone(Enemy[3], Unit.Enemies[3].appear - 0.2f, 3);
         }
     }
 
-    void BossState(enemyUnit enemy)
+    void BossState()
     {
         if (seconds > 100f && BossAppear == true && GameObject.FindGameObjectsWithTag("Enemy").Length < 150)
         {
             BossAppear = false;
-            Clone(Enemy[4], pos, enemy.boss.appear, 4);
+            Clone(Enemy[4], Unit.Enemies[4].appear, 4);
 
         }
     }
@@ -82,6 +85,7 @@ public class CloneEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         seconds = WorldTimer.GetComponent<WorldTime>().WorldTimeSeconds;
         if (seconds <= 120f)
         {
@@ -92,10 +96,10 @@ public class CloneEnemy : MonoBehaviour
             pos = PositionCalculate.position(100f);
         }
         //ìGÇÃî≠ê∂à íu
-        firstEnemyState(Unit);
-        secondEnemyState(Unit);
-        thirdEnemyState(Unit);
-        lastEnemyState(Unit);
-        BossState(Unit);
+        firstEnemyState();
+        secondEnemyState();
+        thirdEnemyState();
+        lastEnemyState();
+        BossState();
     }
 }

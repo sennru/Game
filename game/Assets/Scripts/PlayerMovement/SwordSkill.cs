@@ -13,14 +13,14 @@ public class SwordSkill : MonoBehaviour
     float sliderspeed;
     protected float Value;
     protected EnergyManager energyManager;
-    protected DamageAndCostManager param;
+    protected PropertyManager param;
 
     public void Start()
     {
         SkillSlider = SwordSkillObject.GetComponent<Slider>();
         SliderMovement = SwordSkillObject.GetComponent<Animator>();
         SwordSkillObject.SetActive(false);
-        param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
+        param = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
     }
 
@@ -28,15 +28,15 @@ public class SwordSkill : MonoBehaviour
     private void Update()
     {
         SwordSkillDefinition();
-        if (EnergyLimit(param.CostSword2))
+        if (EnergyLimit(param.state.property.swordCost[0]))
         {
             SwordSkill1();
         }
-        if (EnergyLimit(param.CostSword3))
+        if (EnergyLimit(param.state.property.swordCost[1]))
         {
             SwordSkill2();
         }
-        if (EnergyLimit(param.CostSword4))
+        if (EnergyLimit(param.state.property.swordCost[2]))
         {
             SwordSkill3();
         }

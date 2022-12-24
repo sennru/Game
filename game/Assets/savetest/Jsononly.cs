@@ -7,8 +7,7 @@ public class Jsononly : MonoBehaviour
 {
     private void Start()
     {
-        Status state = loadPlayerData(Application.dataPath + "/save.json");
-        Debug.Log(state.status[0].hp);
+        Status state = loadPlayerData(Application.dataPath + "/save2.json");
     }
 
     public Status loadPlayerData(string Path)

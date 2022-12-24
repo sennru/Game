@@ -7,10 +7,11 @@ public class ExItem : MonoBehaviour
     [System.NonSerialized]
     public EnergyManager energyManager;
     [System.NonSerialized]
-    public enemyUnit Enemy = new enemyUnit();
+    public PropertyManager Enemy;
 
     public void Start()
     {
+        Enemy = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         energyManager = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
 
     }
@@ -29,19 +30,19 @@ public class ExItem : MonoBehaviour
             switch(transform.parent.name)
             {
                 case "ExCube1(Clone)":
-                    EnergyCount(Enemy.firstEnemy);
+                    EnergyCount(Enemy.Enemies[0]);
                     break;
                 case "ExCube2(Clone)":
-                    EnergyCount(Enemy.secondEnemy);
+                    EnergyCount(Enemy.Enemies[1]);
                     break;
                 case "ExCube3(Clone)":
-                    EnergyCount(Enemy.thirdEnemy);
+                    EnergyCount(Enemy.Enemies[2]);
                     break;
                 case "ExCube4(Clone)":
-                    EnergyCount(Enemy.lastEnemy);
+                    EnergyCount(Enemy.Enemies[3]);
                     break;
                 case "ExCube5(Clone)":
-                    EnergyCount(Enemy.boss);
+                    EnergyCount(Enemy.Enemies[4]);
                     break;
             }
 

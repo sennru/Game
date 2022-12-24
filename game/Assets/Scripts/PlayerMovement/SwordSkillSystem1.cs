@@ -30,7 +30,7 @@ public class SwordSkillSystem1 : SwordSkill
                 Ready.Play();
                 var x = Mathf.Abs(0.5f - Value);
                 CubeSpeed = LinearFunctionValue.GetValue(0f, 0.5f, 80f, 30f, x);
-                DamageControl = Mathf.Floor(LinearFunctionValue.GetValue(0f, 0.5f, param.SwordDamage2, param.SwordDamage2 - 50f, x));
+                DamageControl = Mathf.Floor(LinearFunctionValue.GetValue(0f, 0.5f, param.state.property.swordDamage[1], param.state.property.swordDamage[1] - 50f, x));
                 SwordSkillDefinition(CubeSpeed);
             }
         }
@@ -41,6 +41,6 @@ public class SwordSkillSystem1 : SwordSkill
         GameObject impact = (GameObject)Instantiate(ImpactObject, transform.position, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0));
         Rigidbody impactRb = impact.GetComponent<Rigidbody>();
         impactRb.velocity = Camera.transform.forward * Speed; //カメラの向いてる方向へブロックを発射
-        energyManager.Energy -= param.CostSword2;
+        energyManager.Energy -= param.state.property.swordCost[0];
     }
 }

@@ -1,0 +1,63 @@
+{
+    "dateAndTime": "2022/12/23/11:13:11",
+    "status": [
+        {
+            "hp": 20.0,
+            "damage": 1.0,
+            "appear": 1.0,
+            "score": 1,
+            "speed": 1.0
+        },
+        {
+            "hp": 50.0,
+            "damage": 1.0,
+            "appear": 1.0,
+            "score": 1,
+            "speed": 1.0
+        },
+        {
+            "hp": 100.0,
+            "damage": 1.0,
+            "appear": 1.0,
+            "score": 1,
+            "speed": 1.0
+        },
+        {
+            "hp": 1000.0,
+            "damage": 1.0,
+            "appear": 1.0,
+            "score": 1,
+            "speed": 1.0
+        },
+        {
+            "hp": 10000.0,
+            "damage": 1.0,
+            "appear": 1.0,
+            "score": 1,
+            "speed": 1.0
+        }
+    ],
+    "property": {
+        "swordDamage": [
+            50.0,
+            400.0,
+            120.0,
+            120.0
+        ],
+        "gunDamage": [
+            30.0,
+            100.0,
+            800.0
+        ],
+        "swordCost": [
+            200,
+            700,
+            1500
+        ],
+        "gunCost": [
+            4,
+            50,
+            1000
+        ]
+    }
+}

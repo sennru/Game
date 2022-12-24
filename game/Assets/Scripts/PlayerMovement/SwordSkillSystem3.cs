@@ -32,13 +32,13 @@ public class SwordSkillSystem3 : SwordSkill
                 Ready.clip = IAISound[2];
                 Ready.Play();
                 Value = SkillSlider.value;
-                energyManager.Energy -= param.CostSword4;
+                energyManager.Energy -= param.state.property.swordCost[2];
 
                 //ç≈ëÂíºåaÉ”15, ç≈è¨íºåaÉ”10
                 var x = Mathf.Abs(0.5f - Value);
                 var ZoneScale = LinearFunctionValue.GetValue(0f, 0.5f, 15f, 10f, x);
                 //ç≈ëÂ-ç≈è¨É_ÉÅÅ[ÉW = 70
-                DamageControl = Mathf.Floor(LinearFunctionValue.GetValue(0f, 0.5f, param.SwordDamage4, param.SwordDamage4 - 70, x));
+                DamageControl = Mathf.Floor(LinearFunctionValue.GetValue(0f, 0.5f, param.state.property.swordDamage[3], param.state.property.swordDamage[3] - 70, x));
                 Zone.transform.localScale = new Vector3(ZoneScale, ZoneScale, ZoneScale);
                 Instantiate(Zone, PlayerTransform.transform.position, PlayerTransform.transform.rotation);
             }

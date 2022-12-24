@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class EnemyReaction : MonoBehaviour
 {
     follow Enemyfollow = new follow();
-    enemyUnit Unit = new enemyUnit();
-    DamageAndCostManager param;
+    public PropertyManager Unit;
 
-    SwordSkillSystem1 swordSkillSystem1;
+    public SwordSkillSystem1 swordSkillSystem1;
     SwordSkillSystem2 swordSkillSystem2;
     SwordSkillSystem3 swordSkillSystem3;
     ScoreManager ScoreUI;
@@ -17,7 +16,6 @@ public class EnemyReaction : MonoBehaviour
     public GameObject SecondKatana;
     public GameObject thirdKatana;
     float Hp, MaxHp, DownSpeed;
-    public int score;
     public Slider slider;
     public GameObject HpGage;
     AudioSource HitSound;
@@ -38,7 +36,6 @@ public class EnemyReaction : MonoBehaviour
     void Start()
     {
 
-        Debug.Log(Unit.firstEnemy.appear);
         /*ItemGacha1 = new Gacha("Slow", "Use", 1, 1, Exitems[0]);
         ItemGacha2 = new Gacha("Cure", "Use", 2, 1, Exitems[1]);
         ItemGacha3 = new Gacha("Bomb", "Use", 3, 1, Exitems[2]);
@@ -49,6 +46,7 @@ public class EnemyReaction : MonoBehaviour
         ItemGachaLists.Add(ItemGacha3);
         ItemGachaLists.Add(ItemGacha4);
         ItemGachaLists.Add(ItemGacha5);*/
+        Unit = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
         swordSkillSystem1 = GameObject.Find("SwordWave").GetComponent<SwordSkillSystem1>();
         swordSkillSystem2 = GameObject.Find("FirstZone").GetComponent<SwordSkillSystem2>();
         swordSkillSystem3 = GameObject.Find("SecondZone").GetComponent<SwordSkillSystem3>();
@@ -57,8 +55,9 @@ public class EnemyReaction : MonoBehaviour
         slider.value = 1f;
         ScoreUI = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         HitSound = GameObject.Find("Animation").GetComponent<AudioSource>();
-        param = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
         PlayerSlow = GameObject.Find("Player").GetComponent<PlayerMove>();
+
+        Debug.Log(Unit.Enemies[0].appear);
     }
 
     void Update()
@@ -85,25 +84,25 @@ public class EnemyReaction : MonoBehaviour
     {
         if(EnemyName == "first")
         {
-            return Unit.firstEnemy;
+            return Unit.Enemies[0];
         }
         else if (EnemyName == "second")
         {
-            return Unit.secondEnemy;
+            return Unit.Enemies[1];
         }
         else if (EnemyName == "third")
         {
-            return Unit.thirdEnemy;
+            return Unit.Enemies[2];
         }
         else if (EnemyName == "last")
         {
-            return Unit.lastEnemy;
+            return Unit.Enemies[3];
         }
         else if (EnemyName == "boss")
         {
-            return Unit.boss;
+            return Unit.Enemies[4];
         }
-        return Unit.firstEnemy;
+        return Unit.Enemies[0];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -112,16 +111,16 @@ public class EnemyReaction : MonoBehaviour
         {
             if(other.gameObject.name == "bullet(Clone)")
             {
-                Hp -= param.GunDamage1;
+                Hp -= Unit.state.property.gunDamage[0];
             }
 
             if(other.gameObject.name == "bullet2(Clone)")
             {
-                Hp -= param.GunDamage2;
+                Hp -= Unit.state.property.gunDamage[1];
             }
             if (other.gameObject.name == "Explosion(Clone)")
             {
-                Hp -= param.GunDamage3;
+                Hp -= Unit.state.property.gunDamage[2];
             }
             HpGage.SetActive(true);
             HitSound.PlayOneShot(HitSound.clip);
@@ -130,7 +129,7 @@ public class EnemyReaction : MonoBehaviour
         {
             if (other.gameObject.name == "DamageCollider(Clone)")
             {
-                Hp -= param.SwordDamage1;
+                Hp -= Unit.state.property.swordDamage[0];
             }
             if(other.gameObject.name == "Cube(Clone)")
             {

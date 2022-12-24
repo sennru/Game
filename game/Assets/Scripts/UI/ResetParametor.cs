@@ -12,7 +12,7 @@ public class ResetParametor : MonoBehaviour
     EnergyManager ResetEnergy;
     Lifter lifter;
     GunController Bullets;
-    DamageAndCostManager DCparam;
+    PropertyManager DCparam;
     GameObject[] Enemies, EnergyCubes;
     GameObject Player;
     public void Start()
@@ -25,7 +25,7 @@ public class ResetParametor : MonoBehaviour
         ResetEnergy = GameObject.Find("EnergyManager").GetComponent<EnergyManager>();
         Bullets = GameObject.Find("Shooting").GetComponent<GunController>();
         lifter = GameObject.Find("LifterCube").GetComponent<Lifter>();
-        DCparam = GameObject.Find("ParamatorManager").GetComponent<DamageAndCostManager>();
+        DCparam = GameObject.Find("ParamatorManager").GetComponent<PropertyManager>();
     }
     public void ResetParam()
     {
